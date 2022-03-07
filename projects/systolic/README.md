@@ -178,6 +178,15 @@ Copy `systolic` folder to path `~/workspace/ics/projects/` in the docker image. 
 
 ### Run single test
 
+You may have to install numpy by
+```
+conda install numpy
+```
+or
+```
+pip3 install numpy
+```
+
 Simply run `make` under folder `~/workspace/ics/projects/systolic`, it will automatically generate inputs and do a test on your design. If you pass the test, the terminal will show something like
 
 <img src="img/make.png" width="95%" align="middle"/>
