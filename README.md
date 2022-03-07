@@ -20,6 +20,16 @@ If you want to learn about the compiling script, you can read the introduction.
 
 [Introduction of the Compiling Script](./doc/tutorial/manual-3.md)
 
+## Lab Assignment
+
+**Note!!!**
+
+This repository  in the docker image is the initial version. Experimental content of the labs will be released successively in this repository. So you need to use the following git command to update your local repository once new lab is released.
+
+```
+git pull
+```
+
 ## Directory
 
 ```
