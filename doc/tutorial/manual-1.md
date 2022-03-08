@@ -6,8 +6,8 @@ The download website for docker: [Get Started with Docker | Docker](https://www.
 
 Docker is supported in Windows, Linux and MacOS. The detailed installation process can be found in the following links.
 
-| OS      | Link                                                                                                              |
-| ------- | ----------------------------------------------------------------------------------------------------------------- |
+| OS      | Link                                                                                                                 |
+| ------- | -------------------------------------------------------------------------------------------------------------------- |
 | Windows | [https://www.runoob.com/docker/windows-docker-install.html](https://www.runoob.com/docker/macos-docker-install.html) |
 | Ubuntu  | [https://www.runoob.com/docker/ubuntu-docker-install.html](https://www.runoob.com/docker/macos-docker-install.html)  |
 | MacOS   | [https://www.runoob.com/docker/macos-docker-install.html](https://www.runoob.com/docker/macos-docker-install.html)   |
@@ -71,5 +71,3 @@ You can also use the GUI window to view vcd waveform.
 <div align=center>
 <img src="../pictures/03-gtkwave.png" width="60%">
 </div>
-
-
