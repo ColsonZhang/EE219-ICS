@@ -174,11 +174,11 @@ The systolic array is constructed by instantiate PE modules. You need to connect
 
 ### File location
 
-Copy `systolic` folder to path `~/workspace/ics/projects/` in the docker image. The three module files with ports defination are located in `vsrc/src/`
+Copy the `lab2` folder to path `~/workspace/ics/projects/` in the docker image. The three module files with ports defination are located in `vsrc/src/`
 
 ### Run single test
 
-You may have to install numpy by
+You may have to install numpy first by
 ```
 conda install numpy
 ```
@@ -187,9 +187,11 @@ or
 pip3 install numpy
 ```
 
-Simply run `make` under folder `~/workspace/ics/projects/systolic`, it will automatically generate inputs and do a test on your design. If you pass the test, the terminal will show something like
+Simply run `make` under folder `~/workspace/ics/projects/lab2`, it will automatically generate inputs and do a test on your design. If you pass the test, the terminal will show something like
 
 <img src="img/make.png" width="95%" align="middle"/>
+
+(numbers are printed in hexadecimal)
 
 #### Specifiy parameters
 
@@ -201,38 +203,40 @@ make ARR_SIZE=4 IMG_W=5 IMG_H=4 FILTER_NUM=6 FILTER_SIZE=3
 
 #### Enable debug
 
-Set `DEBUG=1` to print more information.
+Add `DEBUG=1` to print more useful information during simulation.
 
 #### Clean
 
-It is recommend to run `make clean` before every simulation.
+It is recommended to run `make clean` before simulation.
 
 ### Run multiple tests
 
 Give execute permission to the script
 ```
-chmod +x run_test
+chmod +x ./run_test
 ```
 
-Run multiple tests
+Run tests
 ```
 ./run_test
 ```
-The result are saved in file `test/test_result.txt`.
+There are 20 testcases given in `test/testcase.txt`, you can add your own cases to it.
 
-You can add your own cases to `test/testcase.txt`.
+The result are saved in file `test/test_result.txt`.
 
 ## Grading
 
 * Complete im2col (20%)
-* Complete systolic array (80%)
+* Complete systolic array
   * Fail all the tests (0%)
   * Pass N tests (30% + 2.5% * N)
 
+Your code will be tested by the same testcases in `test/testcase.txt`.
+
 ## Submission
-Please compress all the files in your `vsrc/src` folder into a `zip` file with name `EE219_Lab2_{Your_Chinese_Name}.zip`, and submit to BB. The file structure should be like
+Please compress all the files in your `vsrc/src` folder into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to BB. The file structure should be like
 ```
-EE219_Lab2_张三/
+7654321_EE219_Lab2/
 |-- src
     |-- im2col.v
     |-- pe.v
