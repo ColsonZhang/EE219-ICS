@@ -30,6 +30,14 @@ This repository  in the docker image is the initial version. Experimental conten
 git pull
 ```
 
+If you have trouble in executing `git pull` like this situation, you can try the command below before executing `git pull`.
+
+![img](./doc/pictures/22_git_pull.png)
+
+```bash
+git branch --set-upstream-to=origin/master master
+```
+
 ## Directory
 
 ```
