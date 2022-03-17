@@ -219,12 +219,12 @@ Run `make clean` to clean up the output files. It is recommended to do this befo
 
 Give execute permission to the script
 ```
-chmod +x ./run_test
+chmod +x ./run_test.sh
 ```
 
 Run tests
 ```
-./run_test
+./run_test.sh
 ```
 20 test cases are given in `test/testcase.txt`, you can add your own cases to it.
 
