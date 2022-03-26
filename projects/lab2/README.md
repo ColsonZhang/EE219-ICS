@@ -237,6 +237,9 @@ Run tests
 
 Test results (pass or filed) are saved in file `test/test_result.txt`.
 
+### Debug
+For the usage of docker image and waveform viewing, please follow this tutorial: [https://github.com/ColsonZhang/ICS/blob/master/doc/tutorial/manual-2.md](https://github.com/ColsonZhang/ICS/blob/master/doc/tutorial/manual-2.md)
+
 ## Marking
 The total score (100%) is the sum of code (80%) and report writing (20%)
 
