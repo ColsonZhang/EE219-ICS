@@ -2,7 +2,14 @@
 
 ## Introduction
 
-This lab aims to design a matrix multiplication module based on systolic array, and apply it to 2D convolution
+This lab aims to design a matrix multiplication module based on systolic array, and apply it to 2D convolution. A brief diagram of the system design is shown below. The systolic array consists of PEs with stationary outputs, which takes the weight and image matrix as inputs and outputs the accumulated result. The images are converted to column vectors by im2col module in order to be compatible with 2D convolution. All the data includes images, weights and output products are saved in one memory device.
+
+<p align="center">
+  <img src ="img/system.png"  width="45%"/>
+</p>
+<p align = "center">
+  <i>System Diagram</i>
+</p>
 
 ### Systolic Array
 
@@ -224,19 +231,32 @@ There are 20 testcases given in `test/testcase.txt`, you can add your own cases 
 
 The result are saved in file `test/test_result.txt`.
 
-## Grading
+## Marking
+The total score (100%) is the sum of code (80%) and report writing (20%)
 
-* Complete im2col (20%)
+### Code (80%)
+* Seccessful submission (5%) 
+* Complete im2col module (10%)
+* Complete PE module (10%)
 * Complete systolic array
   * Fail all the tests (0%)
-  * Pass N tests (30% + 2.5% * N)
+  * Pass N tests (25% + 1.5% * N)
 
 Your code will be tested by the same testcases in `test/testcase.txt`.
 
+### Report (20%)
+The report should be written in English and follows the [IEEE double-column template](https://www.ieee.org/conferences/publishing/templates.html). Only PDF format is acceptable.
+
+A good report should includes following components:
+* An introduction to briefly introduce the system design.
+* Implementation details for each of the modules.
+* A strong conclusion to assess and summarize your design.
+
 ## Submission
-Please compress all the files in your `vsrc/src` folder into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to BB. The file structure should be like
+Please compress all the files in your `vsrc/src` folder and the report into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to Blackboard. The file structure should be like
 ```
-7654321_EE219_Lab2/
+12345678_EE219_Lab2
+|-- report.pdf
 |-- src
     |-- im2col.v
     |-- pe.v
