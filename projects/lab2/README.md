@@ -33,7 +33,7 @@ When performing a 2D convolution, the data in the convolution window is stored d
 
 ## Lab Tasks
 
-The whole design includes following three tasks
+The whole design includes three tasks
 
 1. perform im2col transformation on input image
 2. slicing two matrix and load data to buffer
@@ -60,7 +60,7 @@ All the input and output data are stored on a simulated memory with 32 bits, fin
 
 ### Matrix Slicing
 
-When the size of input matrix is larger than the size of systolic array, the matrix should be first sliced, the width of each slice is the same as the array size. Assume below situation, matrix A and matrix B are divided into 4 slice respectively, we first stream (A_slice0, B_slice0) into the array, and second stream (A_slcie0, B_slice1), and go on... To finish the whole matrix multiplication, each PE needs to do 4x4=16 accumulations. To control the streaming of the input, the module needs two cascaded counter to provide the correct index of slice and pixel.
+When the size of input matrix is larger than the size of systolic array, the matrix should be first sliced, the width of each slice is the same as the array size. Assume below situation, matrix A and matrix B are divided into 4 slice respectively, we first stream (A_slice0, B_slice0) into the array, and second stream (A_slcie0, B_slice1), and go on... To finish the whole matrix multiplication, each PE needs to do 4x4=16 accumulations. To control the streaming of the input, we needs two cascaded counter to provide correct indexes of slices and pixels.
 
 For the case that the matrix size is not a multiple of the array size, the matrix needs to be appended with zero rows and colunms. This operation is automatically done in the testbench and **you can just assume the integer multiples in your design**.
 
@@ -70,7 +70,13 @@ For the case that the matrix size is not a multiple of the array size, the matri
 
 ## Design Specification
 
-You need to implement three modules as described below using Verilog.
+Implementation of below three modules are mandatory, you can add other modules if you like. All the modules should be written by Verilog.
+
+* im2col.v
+* pe.v
+* systolic.v
+
+Design details are described below.
 
 ### Module im2col (im2col.v)
 
@@ -181,7 +187,7 @@ The systolic array is constructed by instantiate PE modules. You need to connect
 
 ### File location
 
-Copy the `lab2` folder to path `~/workspace/ics/projects/` in the docker image. The three module files with ports defination are located in `vsrc/src/`
+Copy the `lab2` folder to path `~/workspace/ics/projects/` in the docker image. The three module files with ports defination are located in `lab2/vsrc/src/`
 
 ### Run single test
 
@@ -194,7 +200,7 @@ or
 pip3 install numpy
 ```
 
-Simply run `make` under folder `~/workspace/ics/projects/lab2`, it will automatically generate inputs and do a test on your design. If you pass the test, the terminal will show something like
+Simply run `make` under `~/workspace/ics/projects/lab2`, it will automatically generate inputs and do a test on your design. If you pass the test, the terminal will show something like
 
 <img src="img/make.png" width="95%" align="middle"/>
 
@@ -210,26 +216,26 @@ make ARR_SIZE=4 IMG_W=5 IMG_H=4 FILTER_NUM=6 FILTER_SIZE=3
 
 #### Enable debug
 
-Add `DEBUG=1` to print more useful information during simulation.
+Add `DEBUG=1` to print more useful information.
 
 #### Clean
 
-It is recommended to run `make clean` before simulation.
+Run `make clean` to clean up the output files. It is recommended to do this before every simulation.
 
 ### Run multiple tests
 
 Give execute permission to the script
 ```
-chmod +x ./run_test
+chmod +x ./run_test.sh
 ```
 
 Run tests
 ```
-./run_test
+./run_test.sh
 ```
-There are 20 testcases given in `test/testcase.txt`, you can add your own cases to it.
+20 test cases are given in `test/testcase.txt`, you can add your own cases to it.
 
-The result are saved in file `test/test_result.txt`.
+Test results (pass or filed) are saved in file `test/test_result.txt`.
 
 ## Marking
 The total score (100%) is the sum of code (80%) and report writing (20%)
@@ -242,7 +248,7 @@ The total score (100%) is the sum of code (80%) and report writing (20%)
   * Fail all the tests (0%)
   * Pass N tests (25% + 1.5% * N)
 
-Your code will be tested by the same testcases in `test/testcase.txt`.
+Your code will be tested by the same cases in `test/testcase.txt`.
 
 ### Report (20%)
 The report should be written in English and follows the [IEEE double-column template](https://www.ieee.org/conferences/publishing/templates.html). Only PDF format is acceptable.
@@ -266,4 +272,4 @@ Please compress all the files in your `vsrc/src` folder and the report into a `z
 
 ## Reference
 
-[1] Yajun, Ha. FPGA-based Hardware System Design (EE116). ShanghaiTech University, 2020
+[1] Yajun, Ha. EE116: FPGA-based Hardware System Design. ShanghaiTech University, 2020

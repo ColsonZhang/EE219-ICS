@@ -18,6 +18,6 @@ module im2col #(
     output reg mem_wr_en
 );
 
-assign im2col_done = 1;
+assign im2col_done = 1; // overwrite this in your design
 
 endmodule
