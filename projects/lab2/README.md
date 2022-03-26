@@ -109,7 +109,7 @@ This module performs the im2col conversion. You need to read image values from m
 
 #### Design Requirements
 
-1. Begin im2col conversion when `rst_im2col` is pulled down, pull `im2col_done` up when finish.
+1. Begin im2col conversion on negedge of `rst_im2col`, pull `im2col_done` up when finish.
 2. The memory can be read and write once per clock cycle.
 3. Use zero-pedding in 2D convolution.
 
@@ -260,6 +260,9 @@ A good report should includes following components:
 * An introduction to briefly introduce the system design.
 * Implementation details for each of the modules.
 * A strong conclusion to assess and summarize your design.
+
+## Bonus
+Compute the total execution time of systolic array (begin with the negedge of rst and end with the last posedge of valid_D). You shoud give a equation of clock cycles based on the module parameters (M, N, K, ARR_SIZE, etc.) and explain why.
 
 ## Submission
 Please compress all the files in your `vsrc/src` folder and the report into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to Blackboard. The file structure should be like
