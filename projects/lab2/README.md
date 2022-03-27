@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This lab aims to design a matrix multiplication module based on systolic array, and apply it to 2D convolution. A brief diagram of the system design is shown below. The systolic array consists of PEs with stationary outputs, which takes the weight and image matrix as inputs and outputs the accumulated result. The images are converted to column vectors by im2col module in order to be compatible with 2D convolution. All the data includes images, weights and output products are saved in one memory device.
+This lab aims to design a matrix multiplication module based on systolic array, and apply it to 2D convolution. A brief diagram of the system design is shown below. The systolic array consists of PEs with stationary outputs, which takes the weight and image matrices as inputs, and outputs the accumulated results. The images are converted to column vectors by im2col module in order to be compatible with 2D convolution. All the data including the images, weights and output products are saved in one memory device.
 
 <p align="center">
   <img src ="img/system.png"  width="45%"/>
@@ -25,7 +25,7 @@ In parallel computer architectures, a systolic array is a homogeneous network of
 
 ### im2col + GEMM
 
-When performing a 2D convolution, the data in the convolution window is stored discontinously in memory, which is not efficient for computation. The im2col operation is to expand each convolution **window** into a **column** of matrix B, and expand each convolution **kernel** into a **row** of matrix A. After im2col, the operation of 2D convolution is equivalent to the mutiplication of matrix A and matrix B. The size of matrix A and matrix B is **M \* N** and **N \* K**, where M is the number of convolution kernels, N is the number of weights in a kernel, K is the number of image pixels.
+When performing a 2D convolution, the data in the convolution window is stored discontinously in memory, which is not efficient for computation. The im2col operation is to expand each convolution **window** into a **column** of matrix B, and expand each convolution **kernel** into a **row** of matrix A. After im2col, the operation of 2D convolution is equivalent to the mutiplication of matrix A and matrix B. The size of matrix A and matrix B is **M \* N** and **N \* K**, where M is the number of convolution kernels, N the number of weights in a kernel and K the number of image pixels.
 
 <p align="center">
   <img src ="img/im2col.gif"  width="45%"/>
@@ -35,15 +35,15 @@ When performing a 2D convolution, the data in the convolution window is stored d
 
 The whole design includes three tasks
 
-1. perform im2col transformation on input image
-2. slicing two matrix and load data to buffer
+1. perform im2col transformation on the input images
+2. slice two matrices and load data to the buffer
 3. perform matrix multiplication using systolic array
 
 You need to implement the first and third tasks (im2col and systolic array).
 
 ### Data Storage
 
-All the input and output data are stored on a simulated memory with 32 bits, find the base addresses of each parameter in the below form. Please note that the image, weights and output matrix are stored in "row first", the im2col are stored in "column first".
+All the input and output data are stored in a simulated memory with 32 bits, find the base addresses of each parameter in the below form. Please note that the image, weights and output matrix are stored in row-major order, the im2col are stored in column-major order.
 
 
 | Name | Value | Description |
@@ -60,7 +60,7 @@ All the input and output data are stored on a simulated memory with 32 bits, fin
 
 ### Matrix Slicing
 
-When the size of input matrix is larger than the size of systolic array, the matrix should be first sliced, the width of each slice is the same as the array size. Assume below situation, matrix A and matrix B are divided into 4 slice respectively, we first stream (A_slice0, B_slice0) into the array, and second stream (A_slcie0, B_slice1), and go on... To finish the whole matrix multiplication, each PE needs to do 4x4=16 accumulations. To control the streaming of the input, we needs two cascaded counter to provide correct indexes of slices and pixels.
+When the size of input matrix is larger than the size of systolic array, the matrix should be first sliced, the width of each slice is the same as the array size. Assume below situation, matrix A and matrix B are divided into 4 slice respectively, we first stream (A_slice0, B_slice0) into the array, and second stream (A_slcie0, B_slice1), and so on... To finish the whole matrix multiplication, each PE needs to do 4x4=16 accumulations. To control the streaming of the input, we needs two cascaded counter to provide correct indexes of slices and pixels.
 
 For the case that the matrix size is not a multiple of the array size, the matrix needs to be appended with zero rows and colunms. This operation is automatically done in the testbench and **you can just assume the integer multiples in your design**.
 
@@ -70,7 +70,7 @@ For the case that the matrix size is not a multiple of the array size, the matri
 
 ## Design Specification
 
-Implementation of below three modules are mandatory, you can add other modules if you like. All the modules should be written by Verilog.
+Implementation of below three modules are mandatory, you can add extra modules (but not necessary). All the modules should be written by Verilog.
 
 * im2col.v
 * pe.v
@@ -111,7 +111,7 @@ This module performs the im2col conversion. You need to read image values from m
 
 1. Begin im2col conversion on negedge of `rst_im2col`, pull `im2col_done` up when finish.
 2. The memory can be read and write once per clock cycle.
-3. Use zero-pedding in 2D convolution.
+3. Use zero-padding in 2D convolution.
 
 ### Module PE (pe.v)
 
@@ -150,7 +150,7 @@ The basic function of PE is calculating the dot products of the rows and columns
 
 ### Module Systolic Array (systolic.v)
 
-The systolic array is constructed by instantiate PE modules. You need to connect the PEs properly and generate the `init` signal for each of them. You also need to generate the pixel and slice counter as describe before.
+The systolic array is constructed by instantiation of the PE modules. You need to connect the PEs properly and generate the `init` signal for each of them. You also need to generate the pixel and slice counter as described above.
 
 #### Parameters
 
@@ -244,7 +244,7 @@ For the usage of docker image and waveform viewing, please follow this tutorial:
 The total score (100%) is the sum of code (80%) and report writing (20%)
 
 ### Code (80%)
-* Seccessful submission (5%) 
+* Successful submission (5%) 
 * Complete im2col module (10%)
 * Complete PE module (10%)
 * Complete systolic array
@@ -262,7 +262,7 @@ A good report should includes following components:
 * A strong conclusion to assess and summarize your design.
 
 ## Bonus
-Compute the total execution time of systolic array (begin with the negedge of rst and end with the last posedge of valid_D). You shoud give a equation of clock cycles based on the module parameters (M, N, K, ARR_SIZE, etc.) and explain why.
+Compute the total execution time of systolic array (begin with the negedge of rst and end with the last posedge of valid_D). You shoud give a equation of clock cycles based on the module parameters (M, N, K, ARR_SIZE, etc.) and explain the reason.
 
 ## Submission
 Please compress all the files in your `vsrc/src` folder and the report into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to Blackboard. The file structure should be like
