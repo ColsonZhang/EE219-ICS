@@ -27,3 +27,5 @@
 !/doc/**
 !**.ipynb
 **.ipynb_checkpoints
+!*.png
+!*.gif
