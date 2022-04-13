@@ -27,11 +27,14 @@ The signal `W` represents the weights and they are concatenated as one signal (0
 So the input signal `X` are (010000)<sub>16</sub>, (040200)<sub>16</sub>, (070503)<sub>16</sub>, (000806)<sub>16</sub>, (000009)<sub>16</sub> repectively for each clock cycle. The output result should be 
 
 <p align="center">
-  <img src ="http://latex.codecogs.com/svg.latex?%5Cbegin%7Bpmatrix%7D%0D%0A0%261%261%5C%5C%0D%0A1%261%260%5C%5C%0D%0A1%260%261%5C%5C%0D%0A%5Cend%7Bpmatrix%7D%5Ctimes%5Cbegin%7Bpmatrix%7D1%262%5C%5C3%264%5C%5C5%266%5C%5C%5Cend%7Bpmatrix%7D"  width="14%"/>
+  <img src ="http://latex.codecogs.com/svg.latex?%5Cbegin%7Bpmatrix%7D%0D%0A22%2628%5C%5C%0D%0A49%2664%5C%5C%0D%0A76%26100%5C%5C%0D%0A%5Cend%7Bpmatrix%7D"  width="8%"/>
 </p>
 <p align = "center">
 </p>
+corresponds to (00000016)<sub>16</sub>, (0000001C)<sub>16</sub>, (00000031)<sub>16</sub>, (00000040)<sub>16</sub>, (0000004C)<sub>16</sub>, (00000064)<sub>16</sub> in signal `Y`.
 
-## Reference
+For the detailed computing procedure, please refer to the lecture slides.
 
-[1] Yajun, Ha. EE116: FPGA-based Hardware System Design. ShanghaiTech University, 2020
+**Reference**
+
+[1] N. P. Jouppi et al., "In-datacenter performance analysis of a tensor processing unit," 2017 ACM/IEEE 44th Annual International Symposium on Computer Architecture (ISCA), 2017, pp. 1-12.
