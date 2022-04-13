@@ -8,12 +8,12 @@ There are three verilog file: `PE.v` is a single MAC unit with control signals; 
 <p align = "center">
 </p>
 
-To run the testbench, either in the experiment environment or on your local computer (with iverilog installed) 
+To run the testbench, use the command line either in the experiment environment or on your local computer (with iverilog installed), `cd` to the folder containing the verilog code 
 ```
 iverilog -o PE_array_test PE_array_tb.v PE_array.v PE.v
 vvp PE_array_test
 ```
-
+After this, the simulation results are printed, but they are in Hexadecimal, so do not reveal the real values, especially the output results are concatenated as one `reg` signal. To verify the results, the waveform file is also generated as `PE_array_tb.vcd`. View it using either **WaveTrace** or **gtkwave**.
 
 ### Systolic Array
 
