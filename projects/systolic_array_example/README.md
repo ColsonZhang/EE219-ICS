@@ -1,4 +1,4 @@
-## EE219 Systolic Array Example Introduced in the Lecture Slides
+# EE219 Systolic Array Example Introduced in the Lecture Slides
  
 There are three verilog file: `PE.v` is a single MAC unit with control signals; `PE_array.v` is a 2D systolic array consisting of the MAC units; `PE_array_tb.v` is a testbench for `PE_array.v`, computing 
 
@@ -8,16 +8,13 @@ There are three verilog file: `PE.v` is a single MAC unit with control signals; 
 <p align = "center">
 </p>
 
-To run the testbench, use the command line either in the experiment environment or on your local computer (with iverilog installed), `cd` to the folder containing the verilog code 
+To run the testbench, use the command line either in the experiment environment or on your local computer (with iverilog installed), `cd` to the folder containing the verilog code and type in the following commands
 ```
 iverilog -o PE_array_test PE_array_tb.v PE_array.v PE.v
 vvp PE_array_test
 ```
-After this, the simulation results are printed, but they are in Hexadecimal, so do not reveal the real values, especially the output results are concatenated as one `reg` signal. To verify the results, the waveform file is also generated as `PE_array_tb.vcd`. View it using either **WaveTrace** or **gtkwave**.
+After this, the simulation results are printed, but they are in hexadecimal, so do not reveal the real values, especially the output results are concatenated as one `reg` signal. To verify the results, the waveform file is also generated as `PE_array_tb.vcd`. View it using either **WaveTrace** or **gtkwave**.
 
-### Systolic Array
-
-In parallel computer architectures, a systolic array is a homogeneous network of tightly coupled processing elements (PEs) called cells or nodes. Each node or PE independently computes a partial result as a function of the data received from its upstream neighbours, stores the result within itself and passes it downstream. 
 
 <p align="center">
   <img src ="img/array.png"  width="45%"/>
