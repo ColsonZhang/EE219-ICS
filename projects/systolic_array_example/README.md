@@ -1,19 +1,19 @@
 ## EE219 Systolic Array Example Introduced in the Lecture Slides
  
-There are three verilog file: PE.v is a single MAC unit with control signals; PE_array.v is a 2D systolic array consisting of the MAC units; PE_array_tb.v is a testbench for PE_array.v, computing $A*b=C$.
-
-$$\begin{matrix}
-0&1&1\\
-1&1&0\\
-1&0&1\\
-\end{matrix}$$
+There are three verilog file: `PE.v` is a single MAC unit with control signals; `PE_array.v` is a 2D systolic array consisting of the MAC units; `PE_array_tb.v` is a testbench for `PE_array.v`, computing 
 
 <p align="center">
-  <img src ="img/system.png"  width="45%"/>
+  <img src ="http://latex.codecogs.com/svg.latex?%5Cbegin%7Bpmatrix%7D%0D%0A0%261%261%5C%5C%0D%0A1%261%260%5C%5C%0D%0A1%260%261%5C%5C%0D%0A%5Cend%7Bpmatrix%7D%5Ctimes%5Cbegin%7Bpmatrix%7D1%262%5C%5C3%264%5C%5C5%266%5C%5C%5Cend%7Bpmatrix%7D"  width="14%"/>
 </p>
 <p align = "center">
-  <i>System Diagram</i>
 </p>
+
+To run the testbench, either in the experiment environment or on your local computer (with iverilog installed) 
+```
+iverilog -o PE_array_test PE_array_tb.v PE_array.v PE.v
+vvp PE_array_test
+```
+
 
 ### Systolic Array
 
