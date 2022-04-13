@@ -1,8 +1,6 @@
-# EE219 Lab2 Systolic Array
-
-## Introduction
-
-This lab aims to design a matrix multiplication module based on systolic array, and apply it to 2D convolution. A brief diagram of the system design is shown below. The systolic array consists of PEs with stationary outputs, which takes the weight and image matrices as inputs, and outputs the accumulated results. The images are converted to column vectors by im2col module in order to be compatible with 2D convolution. All the data including the images, weights and output products are saved in one memory device.
+# EE219 Systolic Array Example introduced in the Lecture Slides
+ 
+There are three verilog file: PE.v is a single MAC unit with control signals; PE_array.v is a 2D systolic array consisting of the MAC units; PE_array_tb.v is a testbench for PE_array.v, computing 
 
 <p align="center">
   <img src ="img/system.png"  width="45%"/>
