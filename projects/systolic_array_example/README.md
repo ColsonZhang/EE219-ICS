@@ -15,6 +15,7 @@ vvp PE_array_test
 ```
 After this, the simulation results are printed, but they are in hexadecimal, so do not reveal the real values, especially the output results are concatenated as one `reg` signal. To verify the results, the waveform file is also generated as `PE_array_tb.vcd`. View it using either **WaveTrace** or **gtkwave**.
 
+The signal `W` represents the weights and they are concatenated as one signal (010203040506)<sub>16</sub>; the input signals are re-arranged as shown in the below figure
 
 <p align="center">
   <img src ="img/array.png"  width="45%"/>
@@ -24,13 +25,6 @@ After this, the simulation results are printed, but they are in hexadecimal, so 
   <i>Systolic Array</i>
 </p>
 
-### im2col + GEMM
-
-When performing a 2D convolution, the data in the convolution window is stored discontinously in memory, which is not efficient for computation. The im2col operation is to expand each convolution **window** into a **column** of matrix B, and expand each convolution **kernel** into a **row** of matrix A. After im2col, the operation of 2D convolution is equivalent to the mutiplication of matrix A and matrix B. The size of matrix A and matrix B is **M \* N** and **N \* K**, where M is the number of convolution kernels, N the number of weights in a kernel and K the number of image pixels.
-
-<p align="center">
-  <img src ="img/im2col.gif"  width="45%"/>
-</p>
 
 ## Lab Tasks
 
