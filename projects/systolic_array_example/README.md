@@ -1,4 +1,4 @@
-# EE219 Systolic Array Example Introduced in the Lecture Slides
+**Systolic Array Example Introduced in the Lecture Slides**
  
 There are three verilog file: `PE.v` is a single MAC unit with control signals; `PE_array.v` is a 2D systolic array consisting of the MAC units; `PE_array_tb.v` is a testbench for `PE_array.v`, computing 
 
@@ -18,8 +18,7 @@ After this, the simulation results are printed, but they are in hexadecimal, so 
 The signal `W` represents the weights and they are concatenated as one signal (010203040506)<sub>16</sub>; the input signals are re-arranged as shown in the below figure
 
 <p align="center">
-  <img src ="img/array.png"  width="45%"/>
-  <img src ="img/flow.gif"  width="45%"/>
+  <img src ="img/PE_array.png"  width="45%"/>
 </p>
 <p align = "center">
   <i>Systolic Array</i>
