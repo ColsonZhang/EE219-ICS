@@ -1,6 +1,12 @@
-# EE219 Systolic Array Example Introduced in the Lecture Slides
+## EE219 Systolic Array Example Introduced in the Lecture Slides
  
-There are three verilog file: PE.v is a single MAC unit with control signals; PE_array.v is a 2D systolic array consisting of the MAC units; PE_array_tb.v is a testbench for PE_array.v, computing 
+There are three verilog file: PE.v is a single MAC unit with control signals; PE_array.v is a 2D systolic array consisting of the MAC units; PE_array_tb.v is a testbench for PE_array.v, computing $A*b=C$.
+
+$$\begin{matrix}
+0&1&1\\
+1&1&0\\
+1&0&1\\
+\end{matrix}$$
 
 <p align="center">
   <img src ="img/system.png"  width="45%"/>
