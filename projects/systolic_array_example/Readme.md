@@ -1,4 +1,4 @@
-# EE219 Systolic Array Example introduced in the Lecture Slides
+# EE219 Systolic Array Example Introduced in the Lecture Slides
  
 There are three verilog file: PE.v is a single MAC unit with control signals; PE_array.v is a 2D systolic array consisting of the MAC units; PE_array_tb.v is a testbench for PE_array.v, computing 
 
