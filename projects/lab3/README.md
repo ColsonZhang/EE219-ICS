@@ -247,11 +247,35 @@ vmac.sw vx1                 ; export the result in mac_unit into vx1
 
 This lab provides a framework for a customized RISCV processor including a scalar core, a vector core and a MAC unit.
 
+```
+`-- vsrc
+    |-- top.v
+    |-- common
+    |   |-- defines.v
+    |   |-- alu_stage.v
+    |   |-- id_stage.v		task-1 task-2
+    |   `-- rvcpu.v
+    |-- mac
+    |   `-- mac_unit.v		task-3
+    |-- scalar
+    |   |-- branch_stage.v
+    |   |-- exe_stage.v		task-1
+    |   |-- if_stage.v
+    |   |-- mem_stage.v		task-1
+    |   |-- regfile.v
+    |   `-- wb_stage.v
+    `-- vector
+        |-- vexe_stage.v	task-2
+        |-- vmem_stage.v
+        |-- vregfile.v		task-2
+        `-- vwb_stage.v
+```
+
 ### Task1 - RV-32I Processor
 
 #### Detailed Requirements
 
-1. The provided framework already supports several instructions, including `lw`,`addi`,`add`,`bne` . To support MAC, extra instructions should be added to the processor. You need to modify the modules `id_stage.v`,`exe_stage.v`,`mem_stage.v` to support these instructions, `mul`,`sw`.
+1. The provided framework already supports several instructions, including `lw`,`addi`,`add`,`bne` . To support MAC, extra instructions should be added to the processor. You need to modify the modules `vsrc/common/id_stage.v`,   `vsrc/scalar/exe_stage.v`, `vsrc/scalar/mem_stage.v` to support these instructions, `mul`,`sw`.
 2. After adding the instructions, program an assembly code to do the matrix MAC operation (D=AB+C) and save the result (D) into memory.
 
 #### Instructions
@@ -315,14 +339,14 @@ bne rs1, rs2, offset
 
 #### Detailed Requirements
 
-1. Complete the modules, `vregfile.v`,`vexe_stage.v` and `id_stage.v` to support `vadd.vv`,`vmul.vv`,`vle32.v` and `vse32.v`.
+1. Complete the modules, `vsrc/vector/vregfile.v`,`vsrc/vector/vexe_stage.v` and `vsrc/common/id_stage.v` to support `vadd.vv`,`vmul.vv`,`vle32.v` and `vse32.v`.
 2. **(optional bonus)** Consider whether the matrix MAC operation can be done with only these vector instructions ( `vadd.vv`,`vmul.vv`,`vle32.v` and `vse32.v` ). If not, give the reason in the report. If the available instructions are extended with the accomplished scalar instructions, program the assembly code to do the matrix MAC operation and compare the code with task1 in the report.
 
 #### General Setting
 
 ##### Vector Data Width Setting
 
-The vector extended RISCV processor contains 32 vector registers, `<b>x0-x31</b>`.
+The vector extended RISCV processor contains 32 vector registers, `x0-x31`.
 
 `VLEN`: represents a fixed bit width for each vector register.
 
@@ -418,7 +442,7 @@ vse32.v   vs3, rs1, vm  ; default vm = 1 (disable mask)
 
 #### Detailed Requirements
 
-1. Complete the module `mac_unit.v`. (The instructions have been accomplished.)
+1. Complete the module `vsrc/mac/mac_unit.v`. (The instructions have been accomplished.)
 2. Program the assembly code to use the mac_unit to finish the matrix MAC.
 
 #### MAC UNIT
