@@ -91,7 +91,7 @@ In this lab, RV32I, RV32V and the custom instruction set are used.
 The whole design includes these tasks.
 
 1. Based on the RV-32I instruction set, design a simple processor supporting necessary instructions and program the corresponding assembly code  for matrix MAC operation.
-2. Extend the processor with RV-32V Vector Extension instruction set to support vector operation. Meanwhile, program the corresponding assembly code for matrix MAC operation.
+2. Extend the processor with RV-32V Vector Extension instruction set to support vector operation.
 3. Insert the custom module MAC_UNIT into the ALU and add the corresponding custom instructions. Meanwhile, program the corresponding assembly code for matrix MAC operation.
 
 ### Matrix MAC
@@ -180,7 +180,6 @@ The assembly code needs to be translated into machine code by the compiler in or
 If you are not familiar with the assembly code, you can try to use the RISC-V assembler and runtime simulator.
 
 > [TheThirdOne/rars: RARS -- RISC-V Assembler and Runtime Simulator (github.com)](https://github.com/TheThirdOne/rars)
->
 
 The file `demo.asm` in the asm folder shows an example code that calls all the used instructions in the lab. Please refer to the format of this code to write assembly code.
 
@@ -252,7 +251,7 @@ This lab provides a framework for a customized RISCV processor including a scala
 
 #### Detailed Requirements
 
-1. The provided framework already supports several instructions, including `lw`,`addi`,`add`,`bne` . To support MAC, extra instructions should be added to the processor. You need to modify the modules `id_stage.v`,`exe_stage.v`,`mem_stage.v` to support these instructions,`mul`,`sw`.
+1. The provided framework already supports several instructions, including `lw`,`addi`,`add`,`bne` . To support MAC, extra instructions should be added to the processor. You need to modify the modules `id_stage.v`,`exe_stage.v`,`mem_stage.v` to support these instructions, `mul`,`sw`.
 2. After adding the instructions, program an assembly code to do the matrix MAC operation (D=AB+C) and save the result (D) into memory.
 
 #### Instructions
@@ -561,15 +560,15 @@ The total score (100%) is the sum of code (80%) and report writing (20%).
 * Successful submission (5%)
 * Complete the task-1 (25%)
   * Complete the HDL-code (5%)
-* Complete the assembly code (10%)
-* Pass the MAC test (10%)
+  * Complete the assembly code (10%)
+  * Pass the MAC test (10%)
 * Complete the task-2 (20%)
   * Complete the HDL-code (20%)
-* Complete the assembly code and pass the MAC test (optional 5%)
+  * Complete the assembly code and pass the MAC test (optional 5%)
 * Complete the task-3 (30%)
   * Complete the HDL-code of MAC unit (10%)
-* Complete the assembly code (10%)
-* Pass the MAC test (10%)
+  * Complete the assembly code (10%)
+  * Pass the MAC test (10%)
 
 ### Report (20%)
 
@@ -579,7 +578,7 @@ The report should include the following components:
 
 * The design idea and implementation details of each task's Verilog code.
 * The design idea and implementation details of each assembly code.
-* The screenshot of passing the test case.
+* The screenshots of passing the test case.
 * An introduction to briefly introduce and compare the 3 kinds of architecture.
   * The comparison should cover software and hardware designs.
 * The conclusion of the lab and your suggestion about the lab.

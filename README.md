@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository is the experimental environment for the cource `AI Computing Systems` of Shanghai Technology University.
+This repository is the experimental environment for the cource `AI Computing Systems` of ShanghaiTech University.
 
 This experimental environment is developed based on the project `oscpu-framework` of [OSCPU](https://github.com/OSCPU).
 
