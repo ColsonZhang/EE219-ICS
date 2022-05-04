@@ -67,20 +67,6 @@ create_soft_link() {
     done
 }
 
-create_bin_soft_link() {
-
-    find -L $BUILD_PATH -maxdepth 1 -type l -delete
-    FOLDERS=`find bin -mindepth 1 -maxdepth 1 -type d`
-    for FOLDER in ${FOLDERS[@]}
-    do
-        SUBFOLDER=${FOLDER##*/}
-        eval "ln -s \"`realpath --relative-to="$BUILD_PATH" "$ICS_PATH/$FOLDER"`\" \"$BUILD_PATH/${FOLDER##*/}\" 1>/dev/null 2>&1"
-    done
-
-    # create soft link ($BUILD_PATH/*.bin -> $ICS_PATH/$BIN_FOLDER/*.bin). Why? Because of laziness!
-    create_soft_link $BUILD_PATH/bin $ICS_PATH/$BIN_FOLDER \"*.bin\"
-}
-
 # automatically get current path
 ICS_PATH=$(dirname $(readlink -f "$0"))
 # user-infomation
@@ -128,6 +114,7 @@ done
 
 PROJECT_PATH=$ICS_PATH/projects/$PROJECT_FOLDER
 BUILD_PATH=$PROJECT_PATH/$BUILD_FOLDER
+BIN_PATH=$ICS_PATH/$PROJECT_FOLDER/$BIN_FOLDER
 
 # Get id and name
 ID=`sed '/^ID=/!d;s/.*=//' $MYINFO_FILE`
@@ -158,7 +145,6 @@ fi
 
 # Simulate
 if [[ "$SIMULATE" == "true" ]]; then
-    create_bin_soft_link
 
     cd $BUILD_PATH
     
