@@ -373,7 +373,7 @@ Taking `VLEN=128bits` as an example, the correspondence between the number of el
 
 In the arithmetic and access instructions, you can choose whether to use the mask mask or not, and whether to enable the function is controlled by the vm bit in the instruction.
 
-In this experiment, the mask is not used by default. **And **`<b>vm</b>`** is set to 1 in all instructions to disable the mask function.**
+In this experiment, the mask is not used by default. **And **`vm`** is set to 1 in all instructions to disable the mask function.**
 
 ##### Load/Store Setting
 
