@@ -276,7 +276,7 @@ This lab provides a framework for a customized RISCV processor including a scala
 #### Detailed Requirements
 
 1. The provided framework already supports several instructions, including `lw`,`addi`,`add`,`bne` . To support MAC, extra instructions should be added to the processor. You need to modify the modules `vsrc/common/id_stage.v`,   `vsrc/scalar/exe_stage.v`, `vsrc/scalar/mem_stage.v` to support these instructions, `mul`,`sw`.
-2. After adding the instructions, program an assembly code to do the matrix MAC operation (D=AB+C) and save the result (D) into memory.
+2. After adding the instructions, program the assembly code `asm/task1.asm`  to do the matrix MAC operation (D=AB+C) and save the result (D) into memory.
 
 #### Instructions
 
@@ -340,7 +340,7 @@ bne rs1, rs2, offset
 #### Detailed Requirements
 
 1. Complete the modules, `vsrc/vector/vregfile.v`,`vsrc/vector/vexe_stage.v` and `vsrc/common/id_stage.v` to support `vadd.vv`,`vmul.vv`,`vle32.v` and `vse32.v`.
-2. **(optional bonus)** Consider whether the matrix MAC operation can be done with only these vector instructions ( `vadd.vv`,`vmul.vv`,`vle32.v` and `vse32.v` ). If not, give the reason in the report. If the available instructions are extended with the accomplished scalar instructions, program the assembly code to do the matrix MAC operation and compare the code with task1 in the report.
+2. **(optional bonus)** Consider whether the matrix MAC operation can be done with only these vector instructions ( `vadd.vv`,`vmul.vv`,`vle32.v` and `vse32.v` ). If not, give the reason in the report. If the available instructions are extended with the accomplished scalar instructions, program the assembly code `asm/task2.asm` to do the matrix MAC operation and compare the code with task1 in the report.
 
 #### General Setting
 
@@ -443,7 +443,7 @@ vse32.v   vs3, rs1, vm  ; default vm = 1 (disable mask)
 #### Detailed Requirements
 
 1. Complete the module `vsrc/mac/mac_unit.v`. (The instructions have been accomplished.)
-2. Program the assembly code to use the mac_unit to finish the matrix MAC.
+2. Program the assembly code `asm/task3.asm` to use the mac_unit to finish the matrix MAC.
 
 #### MAC UNIT
 
