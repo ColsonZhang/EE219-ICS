@@ -248,7 +248,12 @@ vmac.sw vx1                 ; export the result in mac_unit into vx1
 This lab provides a framework for a customized RISCV processor including a scalar core, a vector core and a MAC unit.
 
 ```
-`-- vsrc
+`-- asm
+    |-- demo.asm
+    |-- task1.asm		task-1
+    |-- task2.asm		task-2(optional)
+    |-- task3.asm		task-3
+--- vsrc
     |-- top.v
     |-- common
     |   |-- defines.v
