@@ -571,7 +571,7 @@ The next picture shows the content of `ramdata.txt` containing the matrices A, B
 
 ![img](./doc/image/img13-ramdata.png)
 
-You can also modify the main.cpp to show the matrices in bash. Just cancel the comments of the code show_ram() .
+You can also modify the `csrc/main.cpp` to show the matrices in bash. Just cancel the comments of the code show_ram() .
 
 ![img](./doc/image/img14-main.png)
 
