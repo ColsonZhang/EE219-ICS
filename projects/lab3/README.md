@@ -169,7 +169,7 @@ module VECTOR_RAMHelper(
 
 The minimum stride of access memory is 1 Byte (8 bits).
 
-For 64-bits data access, the access address's step is 4. For example, data A and data B are both 64-bit data and stored in adjacent locations. Data A's address is 0x0000_1000 and data B's address is 0x0000_1008.
+For 64-bits data access, the access address's step is 8. For example, data A and data B are both 64-bit data and stored in adjacent locations. Data A's address is 0x0000_1000 and data B's address is 0x0000_1008.
 
 When the data width of the interface is 64-bits,  it's necessary to split the read data (64-bits) into 2 segments(32-bits) and select the correct segment according to the address, in order to get the 32-bits data. For writing data into memory, the process is similar. The write-data (32-bits) should be embedded in the correct segment (32-bits) of the interface data (64-bits). Meanwhile, the corresponding mask segment should be set high to enable the segment's writing function.
 
