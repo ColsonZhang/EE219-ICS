@@ -3,7 +3,7 @@
 There are three verilog file: `PE.v` is a single MAC unit with control signals; `PE_array.v` is a 2D systolic array consisting of the MAC units; `PE_array_tb.v` is a testbench for `PE_array.v`, computing 
 
 <p align="center">
-  <img src ="http://latex.codecogs.com/svg.latex?%5Cbegin%7Bpmatrix%7D%0D%0A0%261%261%5C%5C%0D%0A1%261%260%5C%5C%0D%0A1%260%261%5C%5C%0D%0A%5Cend%7Bpmatrix%7D%5Ctimes%5Cbegin%7Bpmatrix%7D1%262%5C%5C3%264%5C%5C5%266%5C%5C%5Cend%7Bpmatrix%7D"  width="14%"/>
+<img src="https://latex.codecogs.com/svg.image?\begin{matrix}1&space;&&space;2&space;&&space;3&space;\\&space;4&space;&&space;5&space;&&space;6&space;\\7&space;&&space;8&space;&&space;9\end{matrix}" title="https://latex.codecogs.com/svg.image?\begin{matrix}1 & 2 & 3 \\ 4 & 5 & 6 \\7 & 8 & 9\end{matrix}" width="7%"/>
 </p>
 <p align = "center">
 </p>
