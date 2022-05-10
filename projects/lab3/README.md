@@ -439,7 +439,7 @@ vmul.vv vd, vs2, vs1, vm ; default vm = 1 (disable mask)
 ; 32-bit unit-stride load
 ; load the data (width: VLEN) from memory into the vector register
 vle32.v   vd, rs1, vm  ; default vm = 1 (disable mask)
-; vd = mem[rs1]
+; vd = mem[x[rs1]]
 ```
 
 ##### VSE32.V
@@ -450,7 +450,7 @@ vle32.v   vd, rs1, vm  ; default vm = 1 (disable mask)
 ; 32-bit unit-stride store
 ; save the data (width: VLEN) from vector register into the memory
 vse32.v   vs3, rs1, vm  ; default vm = 1 (disable mask)
-; mem[rs1] = vs3
+; mem[x[rs1]] = vs3
 ```
 
 ### Task3 - Custom Extension
