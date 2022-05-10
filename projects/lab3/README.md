@@ -295,6 +295,8 @@ This lab provides a framework for a customized RISCV processor including a scala
 
 ##### ADDI
 
+> The funct3 actually should be 000 following the RV32-I standard. But in the lab3, you can just see the instruction as a custom instruction.
+
 ![img](./doc/instr/addi.png)
 
 ```
