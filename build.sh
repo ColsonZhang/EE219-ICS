@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VERSION="1.00"
+VERSION="1.10"
 
-COPYRIGHT="Shanghai Technology University\nIntelligent Computing System"
+COPYRIGHT="ShanghaiTech University\nIntelligent Computing System"
 
 help() {
     echo -e $COPYRIGHT

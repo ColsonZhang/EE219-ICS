@@ -104,6 +104,8 @@ The purpose of the designed RISC-V processor is to support the MAC operation. Th
 
 ### Memory
 
+#### Data Mapping
+
 The mapping of the data of the matrix to the address of the memory is shown in the figure.
 
 > Note that only matrix-A is mapped row-by-row and other matrices are mapped col-by-col.
@@ -119,6 +121,8 @@ The base address is the first element's address of the data block. The detailed 
 | Matrix-B       | 0x00200000             | x2                 |
 | Matrix-C       | 0x00300000             | x3                 |
 | Matrix-D       | 0x00400000             | x4                 |
+
+#### Interface
 
 To reduce the challenge of accessing memory, we use 3 simplified memory access models.
 
@@ -165,13 +169,17 @@ module VECTOR_RAMHelper(
 );
 ```
 
-**Important Notes**
+#### Data Access
 
 The minimum stride of access memory is 1 Byte (8 bits).
 
-For 64-bits data access, the access address's step is 8. For example, data A and data B are both 64-bit data and stored in adjacent locations. Data A's address is 0x0000_1000 and data B's address is 0x0000_1008.
+**For 64-bits data access, the access address's step is 8.** For example, data A and data B are both 64-bit data and stored in adjacent locations. Data A's address is 0x0000_1000 and data B's address is 0x0000_1008.
 
-When the data width of the interface is 64-bits,  it's necessary to split the read data (64-bits) into 2 segments(32-bits) and select the correct segment according to the address, in order to get the 32-bits data. For writing data into memory, the process is similar. The write-data (32-bits) should be embedded in the correct segment (32-bits) of the interface data (64-bits). Meanwhile, the corresponding mask segment should be set high to enable the segment's writing function.
+**When the data width of the interface is 64-bits,  it's necessary to split the read data (64-bits) into 2 segments(32-bits) and select the correct segment according to the address, in order to get the 32-bits data. For writing data into memory, the process is similar. The write-data (32-bits) should be embedded in the correct segment (32-bits) of the interface data (64-bits). Meanwhile, the corresponding mask segment should be set high to enable the segment's writing function.**
+
+For example, the two 32-bits data segments at address `0x0000_1000` and `0x0000_1100 `are wanted. Due to access address step of the memory is 8, the actual address passed to the memory is the same, `0x0000_1000`. Then a 64-bits data is passed to the `mem_stage`, and it will decide to take the high part or low part of the 64-bits data according to the actual address. For `0x0000_1100` it will take the high part and for `0x0000_1000` it will take the low part.
+
+For writing data into memory, the principle is the same. When writing to `0x0000_1000`, set the low 32-bits ( of the memory writing interface ) the real data and set the high 32-bits `0x0000`. Meanwhile, set the low 32-bits of the writing mask `0xffff` to enable the writing function and set the high 32-bits of the mask `0x0000` to disable the writing fuction.
 
 ### Assembly Code
 
@@ -614,8 +622,11 @@ The report should include the following components:
 
 ## Bonus
 
-1. Finish the optional content of task2.
-2. Try to optimize the single-cycle processor to five-stage flow processors.
+Finish the optional content of task2.
+
+## Explore for yourself
+
+Try to optimize the single-cycle processor to five-stage flow processors.
 
 ## Submission
 
