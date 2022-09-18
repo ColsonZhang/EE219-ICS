@@ -1,4 +1,13 @@
 #!/bin/bash
+###
+ # @Author: ZhangShen
+ # @Date: 2022-09-18 00:51:23
+ # @LastEditors: ZhangShen
+ # @LastEditTime: 2022-09-18 00:52:07
+ # @Description: 
+ # @FilePath: /ICS/github/ICS/build.sh
+ # Created by RICL of ShanghaiTech SIST
+### 
 
 VERSION="1.10"
 
@@ -27,19 +36,19 @@ build_proj() {
     cd $PROJECT_PATH
 
     # get all .cpp files
-    CSRC_LIST=`find -L $PROJECT_PATH/$CSRC_FOLDER $RAM_PATH/src/$CSRC_FOLDER -name "*.cpp"`
+    CSRC_LIST=`find -L $PROJECT_PATH/$CSRC_FOLDER -name "*.cpp"`
     for CSRC_FILE in ${CSRC_LIST[@]}
     do
         CSRC_FILES="$CSRC_FILES $CSRC_FILE"
     done
     # get all vsrc subfolders
-    VSRC_SUB_FOLDER=`find -L $VSRC_FOLDER $RAM_PATH/src/$VSRC_FOLDER -type d`
+    VSRC_SUB_FOLDER=`find -L $VSRC_FOLDER -type d`
     for SUBFOLDER in ${VSRC_SUB_FOLDER[@]}
     do
         INCLUDE_VSRC_FOLDERS="$INCLUDE_VSRC_FOLDERS -I$SUBFOLDER"
     done
     # get all csrc subfolders
-    CSRC_SUB_FOLDER=`find -L $PROJECT_PATH/$CSRC_FOLDER $RAM_PATH/src/$CSRC_FOLDER -type d`
+    CSRC_SUB_FOLDER=`find -L $PROJECT_PATH/$CSRC_FOLDER -type d`
     for SUBFOLDER in ${CSRC_SUB_FOLDER[@]}
     do
         INCLUDE_CSRC_FOLDERS="$INCLUDE_CSRC_FOLDERS -I$SUBFOLDER"
@@ -74,13 +83,11 @@ MYINFO_FILE=$ICS_PATH"/myinfo.txt"
 
 EMU_FILE="emu"
 V_TOP_FILE="top.v"
-
 BUILD_FOLDER="build_test"
 PROJECT_FOLDER="demo"
 VSRC_FOLDER="vsrc"
 CSRC_FOLDER="csrc"
 BIN_FOLDER="bin"
-
 BUILD="false"
 SIMULATE="false"
 PARAMETERS=
@@ -88,13 +95,7 @@ CFLAGS=
 LDFLAGS="-lz"
 GDB="false"
 CLEAN="false"
-
-LIBRARIES_FOLDER="libraries"
-RAM_FOLDER="ram"
-RAM_PATH=$ICS_PATH/$LIBRARIES_FOLDER/$RAM_FOLDER
-
 VERILATORFLAGS=
-
 while getopts 'he:t:bsa:f:l:gcv:' OPT; do
     case $OPT in
         h)  help;;
@@ -112,7 +113,13 @@ while getopts 'he:t:bsa:f:l:gcv:' OPT; do
     esac
 done
 
-PROJECT_PATH=$ICS_PATH/projects/$PROJECT_FOLDER
+SUB_FOLDER="projects"
+if [ ! -d "$ICS_PATH/$SUB_FOLDER/$PROJECT_FOLDER" ]; then
+    SUB_FOLDER="tutorial" 
+    echo -e "\e[32mProject PATH : $ICS_PATH/$SUB_FOLDER/$PROJECT_FOLDER\e[0m"
+fi 
+
+PROJECT_PATH=$ICS_PATH/$SUB_FOLDER/$PROJECT_FOLDER
 BUILD_PATH=$PROJECT_PATH/$BUILD_FOLDER
 BIN_PATH=$ICS_PATH/$PROJECT_FOLDER/$BIN_FOLDER
 
@@ -131,10 +138,8 @@ NAME="${NAME##*\r}"
 if [[ "$BUILD" == "true" ]]; then
     # clean build path
     [[ -d $BUILD_PATH ]] && find $BUILD_PATH -type l -delete
-    
     # build the project
     build_proj
-
     # git commit
     if [[ ! -f $ICS_PATH/.no_commit ]]; then
         git add . -A --ignore-errors
@@ -147,7 +152,6 @@ fi
 if [[ "$SIMULATE" == "true" ]]; then
 
     cd $BUILD_PATH
-    
     # run simulation program
     echo "Simulating..."
     [[ "$GDB" == "true" ]] && gdb -s $EMU_FILE --args ./$EMU_FILE $PARAMETERS || ./$EMU_FILE $PARAMETERS

@@ -16,7 +16,11 @@
 !*.txt
 !*.sc
 !Makefile
+!readme
+!Readme
 !README
+!readme.md
+!Readme.md
 !README.md
 !LICENSE
 !.gitignore
