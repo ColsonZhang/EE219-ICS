@@ -128,6 +128,19 @@ When you click on it, a new window will usually pop up and you will need to ente
 
 ## Necessary Setup
 
+### Get The Repository
+
+The existing repository `ics` is the old repository and you need to get the newest repository.
+
+You can execute the below command in `~/workspace/` to get the newest repository.
+
+```bash
+cd ~/workspace
+git clone https://github.com/ColsonZhang/EE219-ICS.git
+```
+
+> Note: The repository used in the tutorial is `ics` but you can use `EE219-ICS` to follow the steps.
+
 ### Config Git
 
 After the connection to the container, open the terminal of the container in VS-Code.
