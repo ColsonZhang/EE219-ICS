@@ -36,7 +36,7 @@ reg [31:0] rst_cyc;
 initial begin
     rst_cyc = 5;
     W = 96'h010201020102010201020102;
-    X = 24'h010201;
+    X = 24'h000002;
 end
 
 always@(posedge clk) begin
