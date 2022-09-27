@@ -15,8 +15,6 @@ module systolic_array #(
 
 wire [DATA_WIDTH-1:0] x_out_arr[N-1:0][K-1:0];
 wire [DATA_WIDTH-1:0] y_out_arr[N-1:0][K-1:0];
-wire [DATA_WIDTH-1:0] x_in_arr[N-1:0][K-1:0];
-wire [DATA_WIDTH-1:0] y_in_arr[N-1:0][K-1:0];
 wire [DATA_WIDTH-1:0] w_arr[N-1:0][K-1:0];
 
 genvar i, j, k;
@@ -45,8 +43,8 @@ for (i = 0; i < N; i = i + 1) begin
                 .w(w_arr[i][j]),
                 .x_in(x_out_arr[i][j-1]),
                 .y_in(y_out_arr[i-1][j]),
-                .x_out(x_out_arr[i][j+1]),
-                .y_out(y_out_arr[i+1][j])
+                .x_out(x_out_arr[i][j]),
+                .y_out(y_out_arr[i][j])
             );
         end
         if (i == 0 && j ==0) begin
@@ -61,8 +59,8 @@ for (i = 0; i < N; i = i + 1) begin
                 .w(w_arr[i][j]),
                 .x_in(X[DATA_WIDTH-1:0]),
                 .y_in(0),
-                .x_out(x_out_arr[i][j+1]),
-                .y_out(y_out_arr[i+1][j])
+                .x_out(x_out_arr[i][j]),
+                .y_out(y_out_arr[i][j])
             );
         end
         if (i > 0 && j == 0) begin
@@ -77,8 +75,8 @@ for (i = 0; i < N; i = i + 1) begin
                 .w(w_arr[i][j]),
                 .x_in(X[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH]),
                 .y_in(y_out_arr[i-1][j]),
-                .x_out(x_out_arr[i][j+1]),
-                .y_out(y_out_arr[i+1][j])
+                .x_out(x_out_arr[i][j]),
+                .y_out(y_out_arr[i][j])
             );
         end
         if (i == 0 && j > 0) begin
@@ -93,8 +91,8 @@ for (i = 0; i < N; i = i + 1) begin
                 .w(w_arr[i][j]),
                 .x_in(x_out_arr[i][j-1]),
                 .y_in(0),
-                .x_out(x_out_arr[i][j+1]),
-                .y_out(y_out_arr[i+1][j])
+                .x_out(x_out_arr[i][j]),
+                .y_out(y_out_arr[i][j])
             );
         end
     end
