@@ -28,9 +28,9 @@ systolic_array #(
 )array(
     .clk(clk),
     .rst(rst),
-    .X(X),
+    .X(X_pipe),
     .W(W),
-    .Y(Y)
+    .Y(Y_pipe)
 );
 
 genvar i;
