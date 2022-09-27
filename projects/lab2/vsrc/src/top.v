@@ -18,7 +18,7 @@ wire [DATA_WIDTH*N-1:0] X_pipe;
 reg [DATA_WIDTH*N-1:0] X;
 reg [DATA_WIDTH*N*K-1:0] W;
 wire [DATA_WIDTH*K-1:0] Y_pipe;
-wire [DATA_WIDTH*K-1:0] Y;
+reg [DATA_WIDTH*K-1:0] Y;
 
 systolic_array #(
     .M(M),
