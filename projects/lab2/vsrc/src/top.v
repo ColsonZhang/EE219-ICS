@@ -56,8 +56,8 @@ for(i = 1; i < K; i = i + 1) begin
     )pipes_Y(
         .clk(clk),
         .rst(rst),
-        .in_p(Y[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH]),
-        .out_p(Y_pipe[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH])
+        .in_p(Y_pipe[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH]),
+        .out_p(Y[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH])
     );
 end
 
