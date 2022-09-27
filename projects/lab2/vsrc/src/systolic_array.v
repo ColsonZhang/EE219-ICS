@@ -60,7 +60,7 @@ for (i = 0; i < N; i = i + 1) begin
                 .rst(rst),
                 .w(w_arr[i][j]),
                 .x_in(X[DATA_WIDTH-1:0]),
-                .y_in(Y[DATA_WIDTH-1:0]),
+                .y_in(0),
                 .x_out(x_out_arr[i][j+1]),
                 .y_out(y_out_arr[i+1][j])
             );
