@@ -31,8 +31,22 @@ systolic_array #(
     .Y(Y)
 );
 
-// always@(posedge clk) begin
+reg [31:0] rst_cyc;
 
-// end
+initial begin
+    rst_cyc = 5;
+    W = 96'h010201020102010201020102;
+    X = 24'h010201;
+end
+
+always@(posedge clk) begin
+    if(rst_cyc == 0) begin
+        rst <= 0;
+    end
+    else begin
+        rst_cyc <= rst_cyc - 1;
+        rst <= 1;
+    end
+end
 
 endmodule
