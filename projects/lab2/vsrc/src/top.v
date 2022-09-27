@@ -48,7 +48,7 @@ for(i = 1; i < N; i = i + 1) begin
     );
 end
 
-assign Y_pipe[DATA_WIDTH-1:0] = Y[DATA_WIDTH-1:0];
+assign Y[DATA_WIDTH-1:0] = Y_pipe[DATA_WIDTH-1:0];
 for(i = 1; i < K; i = i + 1) begin
     pipe#(
         .DATA_WIDTH(DATA_WIDTH),
