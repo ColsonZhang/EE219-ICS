@@ -18,99 +18,45 @@ module im2col #(
     output reg mem_wr_en
 );
 
-    reg [DATA_WIDTH-1:0] data_out;
-    reg [ADDR_WIDTH-1:0] addr_wr_a,addr_rd_a;
-    wire [ADDR_WIDTH-1:0] addr_wr_a,addr_rd_a;
-    wire [DATA_WIDTH-1:0] data_out;
-    reg [DATA_WIDTH-1:0] count;
-    
+parameter WEIGHT_SIZE = FILTER_SIZE * FILTER_SIZE;
+reg [ADDR_WIDTH-1:0] cntr, cntr_wr;
+wire i_valid, j_valid, padding;
+reg padding_wr;
+wire [ADDR_WIDTH-1:0] img_i, img_j, kernel_i, kernel_j, img_row, img_col;
+reg [ADDR_WIDTH-1:0] addr_wr_reg0, addr_wr_reg1;
 
-    always @(posedge clk or posedge rst )
-    begin
-        if (rst)
-            begin
-              count =0;
-            end
-        else if (count==IMG_W*IMG_H*FILTER_SIZE*FILTER_SIZE)
-            begin
-               count =0;
-            end
-        else 
-            begin
-               count =count+1;
-            end
-    end
-                
-    always @(posedge clk or posedge rst )
-    begin
-        if (rst)  
-            begin
-              mem_wr_en <= 0;
-            end
-        else  if(clk==1)
-            begin 
-              mem_wr_en <= 1;
-            end
-        else  if (clk==0)
-            begin 
-              mem_wr_en <= 0;
-            end
-    end
+assign kernel_j = cntr % FILTER_SIZE;
+assign kernel_i = (cntr / FILTER_SIZE) % FILTER_SIZE;
+assign img_j = (cntr / WEIGHT_SIZE) % IMG_W;
+assign img_i = (cntr / (WEIGHT_SIZE * IMG_W)) % IMG_H;
+assign img_row = img_i + kernel_i - 1;
+assign img_col = img_j + kernel_j - 1;
+assign i_valid = (img_row < IMG_H) ? 1 : 0;
+assign j_valid = (img_col < IMG_W) ? 1 : 0;
+assign padding = (i_valid & j_valid) ? 0 : 1;
+assign addr_rd = (padding) ? 0 : IMG_BASE + img_row * IMG_W + img_col;
+assign addr_wr = IM2COL_BASE + cntr_wr;
+assign data_wr = (padding_wr) ? 0 : data_rd;
 
-    always @(posedge clk or posedge rst )
-    begin
-        if (rst)  
-            begin
-              done <= 0;
-            end
-        else if (count==IMG_W*IMG_H*FILTER_SIZE*FILTER_SIZE)
-            begin
-              done <= 1;
-            end
-        else 
-            begin
-              done <= 0;
-            end
+always @(posedge clk or posedge rst) begin
+    if (rst) begin
+        cntr <= 0;
+        cntr_wr <= 0;
+        mem_wr_en <= 0;
+        done <= 0;
     end
-
-    always @(posedge clk or posedge rst )
-    begin
-        if (rst)
-            addr_wr_a=IM2COL_BASE-1;
-        else 
-            addr_wr_a=addr_wr_a+1;
-    end
-
-    always @(posedge clk or posedge rst )
-    begin
-        if (rst)
-        begin
-            addr_rd_a=0;
+    else begin
+        if (cntr < IMG_W * IMG_H * WEIGHT_SIZE) begin
+            mem_wr_en <= 1;
+            cntr <= cntr + 1;
+            cntr_wr <= cntr;
+            padding_wr <= padding;
         end
-        else  
-        begin
-          addr_rd_a=IMG_BASE+ ((count-1)/(FILTER_SIZE*FILTER_SIZE)+ IMG_W*(((count-1)%(FILTER_SIZE*FILTER_SIZE))/FILTER_SIZE - 1) + ((count-1)%(FILTER_SIZE*FILTER_SIZE))%FILTER_SIZE -1);
+        else begin
+            mem_wr_en <= 0;
+            done <= 1;
         end
     end
-
-    always @(posedge clk or posedge rst )
-    begin
-        if (rst)
-        begin
-            data_out=0; 
-        end
-        else if(mem_wr_en)
-        begin
-            data_out=data_rd;
-        end
-    end
-
-    assign addr_rd = addr_rd_a;
-    assign addr_wr = addr_wr_a;
-
-    assign data_wr=data_out;
-
-
+end
 
 endmodule
-

@@ -152,8 +152,8 @@ end
 
 always@(posedge im2col_done) begin
     $writememh("../mem/mem_out.txt", mem);
-    display_img();
-    display_im2col();
+    // display_img();
+    // display_im2col();
 end
 
 endmodule

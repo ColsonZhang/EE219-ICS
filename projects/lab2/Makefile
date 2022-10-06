@@ -4,7 +4,7 @@ FILTER_NUM = 5
 FILTER_SIZE = 3
 DEBUG = 0
 
-all: sim
+all: test
 
 memory:
 	python3 ./scripts/generate_mem.py $(IMG_W) $(IMG_H) $(FILTER_NUM) $(FILTER_SIZE) $(DEBUG)
