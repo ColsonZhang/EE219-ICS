@@ -109,18 +109,22 @@ begin
 end
 endtask
 
-task load_weight();
-begin
-    $write("\nweight:\n");
-    for (i0 = 0; i0 < N; i0 = i0 + 1) begin
-        for (j0 = 0; j0 < K; j0 = j0 + 1) begin
-            W_buffer[i0][j0] = mem[WEIGHT_BASE + K*j0 + i0];
-            $write("%04h ", mem[WEIGHT_BASE + K*j0 + i0]);
+
+for (i = 0; i < N; i = i + 1) begin
+    for (j = 0; j < K; j = j + 1) begin
+        always@(posedge im2col_done) begin
+            W_buffer[i][j] <= mem[WEIGHT_BASE + K*j + i];
         end
-        $write("\n");
     end
 end
-endtask
+for (i = 0; i < M; i = i + 1) begin
+    for (j = 0; j < N; j = j + 1) begin
+        always@(posedge im2col_done) begin
+            X_buffer[i][(j+1)*DATA_WIDTH-1:j*DATA_WIDTH] <= mem[IM2COL_BASE + j*M +i];
+        end
+    end
+end
+
 
 // Memory
 always @(posedge clk) begin
@@ -155,8 +159,6 @@ always @(posedge clk) begin
     end
 end
 
-// Load weight
-
 
 initial begin
     $readmemh("../mem/mem_init.txt", mem);
@@ -167,7 +169,6 @@ end
 
 always@(posedge im2col_done) begin
     $writememh("../mem/mem_out.txt", mem);
-    // load_weight();
     // display_img();
     // display_im2col();
 end
