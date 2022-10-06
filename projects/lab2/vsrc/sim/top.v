@@ -44,7 +44,7 @@ reg [31:0] rst_cyc;
 reg [31:0] clk_cnt;
 reg rst_im2col, rst_systolic;
 wire im2col_done, systolic_done;
-reg [31:0] im2col_idle, systolic_idle;
+reg [31:0] im2col_idle, systolic_idle, output_idle;
 reg Y_valid;
 
 im2col #(
@@ -145,10 +145,7 @@ initial begin
     rst_cyc = 5;
     im2col_idle = 5;
     systolic_idle = 5;
-end
-
-always@(posedge im2col_done) begin
-    $writememh("../mem/mem_out.txt", mem);
+    output_idle = 5;
 end
 
 for (i = 0; i < N*K; i = i + 1) begin
@@ -201,5 +198,15 @@ for (i = 0; i < K; i = i + 1) begin
     end
 end
 
+always@(posedge clk) begin
+    if (output_idle == 0) begin
+        $writememh("../mem/mem_out.txt", mem);
+    end
+    else begin
+        if (systolic_done) begin
+            output_idle <= output_idle - 1;
+        end
+    end
+end
 
 endmodule
