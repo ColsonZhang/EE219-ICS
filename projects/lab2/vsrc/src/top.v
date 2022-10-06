@@ -87,6 +87,7 @@ always@(posedge clk) begin
         5: X <= 24'h010203;
         6: X <= 24'h030201;
         7: X <= 24'h010302;
+        default: X <= 0;
     endcase
 end
 
