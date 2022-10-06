@@ -25,7 +25,6 @@ parameter WEIGHT_BASE = 32'h00001000;
 parameter IM2COL_BASE = 32'h00002000;
 parameter OUTPUT_BASE = 32'h00003000;
 
-reg rst;
 reg [DATA_WIDTH*N-1:0] X;
 reg [DATA_WIDTH*K-1:0] Y;
 wire [DATA_WIDTH*N*K-1:0] W;
@@ -79,7 +78,7 @@ systolic_array #(
     .DATA_WIDTH(DATA_WIDTH)
 )systolic_array(
     .clk(clk),
-    .rst(rst),
+    .rst(rst_systolic),
     .X(X),
     .W(W),
     .Y(Y)
