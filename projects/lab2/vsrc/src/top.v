@@ -62,11 +62,13 @@ for(i = 1; i < K; i = i + 1) begin
 end
 
 reg [31:0] rst_cyc;
+reg [31:0] clk_cnt;
 
 initial begin
     rst_cyc = 5;
+    clk_cnt = 0;
     W = 96'h010201020102010201020102;
-    X = 24'h010203;
+    // X = 24'h010203;
 end
 
 always@(posedge clk) begin
@@ -77,6 +79,15 @@ always@(posedge clk) begin
         rst_cyc <= rst_cyc - 1;
         rst <= 1;
     end
+end
+
+always@(posedge clk) begin
+    clk_cnt <= clk_cnt + 1;
+    case (clk_cnt) 
+        5: X <= 24'h010203;
+        6: X <= 24'h030201;
+        7: X <= 24'h010302;
+    endcase
 end
 
 endmodule
