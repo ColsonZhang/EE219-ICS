@@ -43,7 +43,7 @@ wire mem_wr_en;
 reg [31:0] rst_cyc;
 reg [31:0] clk_cnt;
 reg rst_im2col, rst_systolic;
-wire im2col_done, systolic_done;
+wire im2col_done;
 reg [31:0] im2col_idle, systolic_idle;
 reg Y_valid;
 
@@ -191,4 +191,13 @@ always@(posedge clk or posedge Y_valid) begin
         end
     end
 end
+
+for (i = 0; i < K; i = i + 1) begin
+    for (j = 0; j < M; j = j + 1) begin
+        always@(posedge Y_valid) begin
+            mem[i*M+j] = Y_buffer[j][(i+1)*DATA_WIDTH-1:i*DATA_WIDTH];
+        end
+    end
+end
+
 endmodule
