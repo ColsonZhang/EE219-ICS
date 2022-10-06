@@ -15,13 +15,13 @@ module array #(
 
 wire [DATA_WIDTH-1:0] x_out_arr[N-1:0][K-1:0];
 wire [DATA_WIDTH-1:0] y_out_arr[N-1:0][K-1:0];
-wire [DATA_WIDTH-1:0] w_arr[N-1:0][K-1:0];
+wire [DATA_WIDTH-1:0] w_arr[0:N-1][0:K-1];
 
 genvar i, j, k;
 
 for (i = 0; i < N; i = i + 1) begin
     for (j = 0; j < K; j = j + 1) begin
-        assign w_arr[i][j] = W[(i*K+j+1)*DATA_WIDTH-1:(i*K+j)*DATA_WIDTH];
+        assign w_arr[i][j] = W[(j*N+i+1)*DATA_WIDTH-1:(j*N+i)*DATA_WIDTH];
     end
 end
 
