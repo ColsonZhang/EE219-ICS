@@ -5,10 +5,11 @@ FILTER_NUM = 7
 FILTER_SIZE = 3
 DEBUG = 0
 
-all: clean
+all: build
 
 build:
-	
+	./../../build.sh -e lab2 -b
+	./../../build.sh -e lab2 -s
 
 clean:
 	./../../build.sh -e lab2 -c
