@@ -28,10 +28,18 @@ parameter OUTPUT_BASE = 32'h00003000;
 reg rst;
 reg [DATA_WIDTH*N-1:0] X;
 reg [DATA_WIDTH*K-1:0] Y;
-reg [DATA_WIDTH*N*K-1:0] W;
+wire [DATA_WIDTH*N*K-1:0] W;
 
 reg [DATA_WIDTH*N-1:0] X_buffer [0:M];
 reg [DATA_WIDTH*K-1:0] Y_buffer [0:M];
+reg [DATA_WIDTH-1:0] W_buffer [N-1:0][K-1:0];
+
+genvar i, j, k;
+for (i = 0; i < N; i = i + 1) begin
+    for (j = 0; j < K; j = j + 1) begin
+        assign W[(i*K+j+1)*DATA_WIDTH-1:(i*K+j)*DATA_WIDTH] = W_buffer[i][j];
+    end
+end
 
 wire [ADDR_WIDTH-1:0] addr_rd, addr_wr;
 reg [DATA_WIDTH-1:0] mem [MEM_SIZE-1:0];
@@ -102,11 +110,15 @@ begin
 end
 endtask
 
-// task load_weight();
-// begin
-//     for (i0 = 0; i0 <)
-// end
-// endtask
+task load_weight();
+begin
+    for (i0 = 0; i0 < N; i0 = i0 + 1) begin
+        for (j0 = 0; j0 < K; j0 = j0 + 1) begin
+            W_buffer[i0][j0] = mem[WEIGHT_BASE + K*j0 + i0];
+        end
+    end
+end
+endtask
 
 // Memory
 always @(posedge clk) begin
@@ -152,6 +164,7 @@ end
 
 always@(posedge im2col_done) begin
     $writememh("../mem/mem_out.txt", mem);
+    load_weight();
     // display_img();
     // display_im2col();
 end
