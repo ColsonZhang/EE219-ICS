@@ -55,12 +55,12 @@ im2col #(
     .IM2COL_BASE(IM2COL_BASE)
 )im2col(
     .clk(clk),
-    .rst_im2col(rst_im2col),
+    .rst(rst_im2col),
     .data_rd(data_rd),
     .data_wr(data_wr),
     .addr_rd(addr_rd),
     .addr_wr(addr_wr),
-    .im2col_done(im2col_done),
+    .done(im2col_done),
     .mem_wr_en(mem_wr_en)
 );
 
@@ -76,7 +76,6 @@ systolic_array #(
     .W(W),
     .Y(Y)
 );
-
 
 integer i0, j0, k0;
 task display_img();
@@ -94,14 +93,20 @@ endtask
 task display_im2col();
 begin
     $write("\nim2col:\n");
-    for (i0 = 0; i0 < N; i0 = i0 + 1) begin
-        for (j0 = 0; j0 < K; j0 = j0 + 1) begin
+    for (i0 = 0; i0 < M; i0 = i0 + 1) begin
+        for (j0 = 0; j0 < N; j0 = j0 + 1) begin
             $write("%04h ", mem[IM2COL_BASE + N * j0 + i0]);
         end
         $write("\n");
     end
 end
 endtask
+
+// task load_weight();
+// begin
+//     for (i0 = 0; i0 <)
+// end
+// endtask
 
 // Memory
 always @(posedge clk) begin
@@ -121,6 +126,23 @@ always @(posedge clk) begin
         rst_im2col <= 1;
     end
 end
+
+// always @(posedge clk) begin
+//     if (~im2col_done) begin
+//         rst_systolic <= 1;
+//     end
+//     else begin
+//         if (systolic_idle == 0) begin
+//             rst_systolic <= 0;
+//         end
+//         else begin
+//             systolic_idle <= systolic_idle - 1;
+//         end
+//     end
+// end
+
+// Load weight
+
 
 initial begin
     $readmemh("../mem/mem_init.txt", mem);

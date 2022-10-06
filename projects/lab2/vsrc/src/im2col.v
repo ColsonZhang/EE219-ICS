@@ -9,12 +9,12 @@ module im2col #(
     parameter IM2COL_BASE = 16'h2000
 ) (
     input clk,
-    input rst_im2col,
+    input rst,
     input [DATA_WIDTH-1:0] data_rd,
     output [DATA_WIDTH-1:0] data_wr,
     output [ADDR_WIDTH-1:0] addr_wr,
     output [ADDR_WIDTH-1:0] addr_rd,
-    output reg im2col_done,
+    output reg done,
     output reg mem_wr_en
 );
 
@@ -25,9 +25,9 @@ module im2col #(
     reg [DATA_WIDTH-1:0] count;
     
 
-    always @(posedge clk or posedge rst_im2col )
+    always @(posedge clk or posedge rst )
     begin
-        if (rst_im2col)
+        if (rst)
             begin
               count =0;
             end
@@ -41,9 +41,9 @@ module im2col #(
             end
     end
                 
-    always @(posedge clk or posedge rst_im2col )
+    always @(posedge clk or posedge rst )
     begin
-        if (rst_im2col)  
+        if (rst)  
             begin
               mem_wr_en <= 0;
             end
@@ -57,33 +57,33 @@ module im2col #(
             end
     end
 
-    always @(posedge clk or posedge rst_im2col )
+    always @(posedge clk or posedge rst )
     begin
-        if (rst_im2col)  
+        if (rst)  
             begin
-              im2col_done <= 0;
+              done <= 0;
             end
         else if (count==IMG_W*IMG_H*FILTER_SIZE*FILTER_SIZE)
             begin
-              im2col_done <= 1;
+              done <= 1;
             end
         else 
             begin
-              im2col_done <= 0;
+              done <= 0;
             end
     end
 
-    always @(posedge clk or posedge rst_im2col )
+    always @(posedge clk or posedge rst )
     begin
-        if (rst_im2col)
+        if (rst)
             addr_wr_a=IM2COL_BASE-1;
         else 
             addr_wr_a=addr_wr_a+1;
     end
 
-    always @(posedge clk or posedge rst_im2col )
+    always @(posedge clk or posedge rst )
     begin
-        if (rst_im2col)
+        if (rst)
         begin
             addr_rd_a=0;
         end
@@ -93,9 +93,9 @@ module im2col #(
         end
     end
 
-    always @(posedge clk or posedge rst_im2col )
+    always @(posedge clk or posedge rst )
     begin
-        if (rst_im2col)
+        if (rst)
         begin
             data_out=0; 
         end
