@@ -93,8 +93,8 @@ endtask
 task display_im2col();
 begin
     $write("\nim2col:\n");
-    for (i0 = 0; i0 < M; i0 = i0 + 1) begin
-        for (j0 = 0; j0 < N; j0 = j0 + 1) begin
+    for (i0 = 0; i0 < N; i0 = i0 + 1) begin
+        for (j0 = 0; j0 < M; j0 = j0 + 1) begin
             $write("%04h ", mem[IM2COL_BASE + N * j0 + i0]);
         end
         $write("\n");
