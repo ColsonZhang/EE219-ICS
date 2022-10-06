@@ -163,16 +163,16 @@ for (i = 0; i < M; i = i + 1) begin
     end
 end
 
-reg [31:0] count;
+reg [31:0] X_count, Y_count;
 always@(posedge clk or posedge rst_systolic) begin
     if (rst_systolic) begin
         X <= 0;
-        count <= 0;
+        X_count <= 0;
     end
     else begin
-        count <= count + 1;
-        if (count < M) begin
-            X <= X_buffer[count];      
+        X_count <= X_count + 1;
+        if (X_count < M) begin
+            X <= X_buffer[X_count];      
         end
         else begin
             X <= 0;
@@ -180,4 +180,19 @@ always@(posedge clk or posedge rst_systolic) begin
     end
 end
 
+for (i = 0; i < K; i = i + 1) begin
+always@(posedge clk or posedge Y_valid) begin
+    if (Y_valid) begin
+        Y_count <= 0;
+    end
+    else begin
+        Y_count <= Y_count + 1;
+        if (Y_count < M) begin
+            
+                Y_buffer[i] <= Y;
+            
+        end
+    end
+end
+end
 endmodule
