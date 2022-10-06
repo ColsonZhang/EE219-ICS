@@ -48,7 +48,7 @@ for(i = 1; i < N; i = i + 1) begin
     );
 end
 
-assign Y[DATA_WIDTH-1:0] = Y_pipe[DATA_WIDTH-1:0];
+assign Y[K*DATA_WIDTH-1:(K-1)*DATA_WIDTH] = Y_pipe[K*DATA_WIDTH-1:(K-1)*DATA_WIDTH];
 for(i = 1; i < K; i = i + 1) begin
     pipe#(
         .DATA_WIDTH(DATA_WIDTH),
@@ -56,8 +56,8 @@ for(i = 1; i < K; i = i + 1) begin
     )pipes_Y(
         .clk(clk),
         .rst(rst),
-        .in_p(Y_pipe[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH]),
-        .out_p(Y[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH])
+        .in_p(Y_pipe[(K-i)*DATA_WIDTH-1:(K-i-1)*DATA_WIDTH]),
+        .out_p(Y[(K-i)*DATA_WIDTH-1:(K-i-1)*DATA_WIDTH])
     );
 end
 
