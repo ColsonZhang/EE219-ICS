@@ -109,23 +109,6 @@ begin
 end
 endtask
 
-
-for (i = 0; i < N; i = i + 1) begin
-    for (j = 0; j < K; j = j + 1) begin
-        always@(posedge im2col_done) begin
-            W_buffer[i][j] <= mem[WEIGHT_BASE + K*j + i];
-        end
-    end
-end
-for (i = 0; i < M; i = i + 1) begin
-    for (j = 0; j < N; j = j + 1) begin
-        always@(posedge im2col_done) begin
-            X_buffer[i][(j+1)*DATA_WIDTH-1:j*DATA_WIDTH] <= mem[IM2COL_BASE + i*N +j];
-        end
-    end
-end
-
-
 // Memory
 always @(posedge clk) begin
     data_rd <= mem[addr_rd];
@@ -171,6 +154,33 @@ always@(posedge im2col_done) begin
     $writememh("../mem/mem_out.txt", mem);
     // display_img();
     // display_im2col();
+end
+
+for (i = 0; i < N; i = i + 1) begin
+    for (j = 0; j < K; j = j + 1) begin
+        always@(posedge im2col_done) begin
+            W_buffer[i][j] <= mem[WEIGHT_BASE + K*j + i];
+        end
+    end
+end
+for (i = 0; i < M; i = i + 1) begin
+    for (j = 0; j < N; j = j + 1) begin
+        always@(posedge im2col_done) begin
+            X_buffer[i][(j+1)*DATA_WIDTH-1:j*DATA_WIDTH] <= mem[IM2COL_BASE + i*N +j];
+        end
+    end
+end
+
+reg [31:0] X_count;
+always@(posedge clk or posedge rst_systolic) begin
+    if (rst_systolic) begin
+        X <= 0;
+        X_count <= 0;
+    end
+    else begin
+        X <= X_buffer[X_count];
+        X_count <= X_count + 1;
+    end
 end
 
 endmodule
