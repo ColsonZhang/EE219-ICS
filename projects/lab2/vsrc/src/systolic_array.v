@@ -66,7 +66,7 @@ always@(posedge clk or posedge rst) begin
     end
     else begin
         count <= count + 1;
-        if (count > N+K-1 && count < N+K+M-1) begin
+        if (count >= N+K-1 && count < N+K+M-1) begin
             valid <= 1;
         end
     end
