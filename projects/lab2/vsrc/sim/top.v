@@ -181,8 +181,8 @@ always@(posedge clk or posedge rst_systolic) begin
     end
 end
 
-always@(posedge clk or posedge Y_valid) begin
-    if (Y_valid) begin
+always@(posedge clk) begin
+    if (~Y_valid) begin
         Y_count <= 0;
     end
     else begin
