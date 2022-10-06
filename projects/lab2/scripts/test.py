@@ -11,11 +11,10 @@ OUTPUT_BASE = 0x00003000
 mem_file1 = './mem/mem_init.txt'
 mem_file2 = './mem/mem_out.txt'
 
-ARR_SIZE = int(sys.argv[1])
-IMG_W = int(sys.argv[2])
-IMG_H = int(sys.argv[3])
-FILTER_NUM = int(sys.argv[4])
-FILTER_SIZE = int(sys.argv[5])
+IMG_W = int(sys.argv[1])
+IMG_H = int(sys.argv[2])
+FILTER_NUM = int(sys.argv[3])
+FILTER_SIZE = int(sys.argv[4])
 
 def im2col_fun(input_data, filter_h, filter_w, stride=1, pad=0):
 

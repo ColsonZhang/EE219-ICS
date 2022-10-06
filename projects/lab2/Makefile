@@ -4,12 +4,15 @@ FILTER_NUM = 5
 FILTER_SIZE = 3
 DEBUG = 0
 
-all: build
+all: sim
 
 memory:
 	python3 ./scripts/generate_mem.py $(IMG_W) $(IMG_H) $(FILTER_NUM) $(FILTER_SIZE) $(DEBUG)
 
-build: memory
+test: sim
+	python3 ./scripts/test.py $(IMG_W) $(IMG_H) $(FILTER_NUM) $(FILTER_SIZE)
+
+sim: memory
 	./../../build.sh -e lab2 -b
 	./../../build.sh -e lab2 -s
 
