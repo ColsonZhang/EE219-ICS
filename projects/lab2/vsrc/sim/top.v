@@ -49,9 +49,9 @@ wire mem_wr_en;
 
 reg [31:0] rst_cyc;
 reg [31:0] clk_cnt;
-reg rst_im2col;
-wire im2col_done;
-reg [31:0] im2col_idle;
+reg rst_im2col, rst_systolic;
+wire im2col_done, systolic_done;
+reg [31:0] im2col_idle, systolic_idle;
 
 im2col #(
     .IMG_W(IMG_W),
@@ -142,19 +142,19 @@ always @(posedge clk) begin
     end
 end
 
-// always @(posedge clk) begin
-//     if (~im2col_done) begin
-//         rst_systolic <= 1;
-//     end
-//     else begin
-//         if (systolic_idle == 0) begin
-//             rst_systolic <= 0;
-//         end
-//         else begin
-//             systolic_idle <= systolic_idle - 1;
-//         end
-//     end
-// end
+always @(posedge clk) begin
+    if (~im2col_done) begin
+        rst_systolic <= 1;
+    end
+    else begin
+        if (systolic_idle == 0) begin
+            rst_systolic <= 0;
+        end
+        else begin
+            systolic_idle <= systolic_idle - 1;
+        end
+    end
+end
 
 // Load weight
 
@@ -163,11 +163,12 @@ initial begin
     $readmemh("../mem/mem_init.txt", mem);
     rst_cyc = 5;
     im2col_idle = 5;
+    systolic_idle = 5;
 end
 
 always@(posedge im2col_done) begin
     $writememh("../mem/mem_out.txt", mem);
-    load_weight();
+    // load_weight();
     // display_img();
     // display_im2col();
 end
