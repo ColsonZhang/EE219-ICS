@@ -112,10 +112,13 @@ endtask
 
 task load_weight();
 begin
+    $write("\nweight:\n");
     for (i0 = 0; i0 < N; i0 = i0 + 1) begin
         for (j0 = 0; j0 < K; j0 = j0 + 1) begin
             W_buffer[i0][j0] = mem[WEIGHT_BASE + K*j0 + i0];
+            $write("%04h ", mem[WEIGHT_BASE + K*j0 + i0]);
         end
+        $write("\n");
     end
 end
 endtask
