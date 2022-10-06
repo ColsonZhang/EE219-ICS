@@ -72,7 +72,7 @@ always@(posedge clk or posedge rst) begin
             valid <= 0;
             done <= 0;
         end
-        if (count >= N+K-1 && count < N+K+M-1) begin
+        else if (count >= N+K-1 && count < N+K+M-1) begin
             valid <= 1;
             done <= 0;
         end
