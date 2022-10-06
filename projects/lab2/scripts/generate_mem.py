@@ -43,7 +43,8 @@ def main():
 
     for i in range(K):
         for j in range(N):
-            val = random.randint(0, 255)
+            # val = random.randint(0, 255)
+            val = 1
             mem_list[WEIGHT_BASE + i * N +j] = val
     write_mem(mem_list)
     modify_testbench()
