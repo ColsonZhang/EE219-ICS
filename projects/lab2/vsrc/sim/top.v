@@ -43,7 +43,7 @@ wire mem_wr_en;
 reg [31:0] rst_cyc;
 reg [31:0] clk_cnt;
 reg rst_im2col, rst_systolic;
-wire im2col_done;
+wire im2col_done, systolic_done;
 reg [31:0] im2col_idle, systolic_idle;
 reg Y_valid;
 
@@ -77,7 +77,8 @@ systolic_array #(
     .X(X),
     .W(W),
     .Y(Y),
-    .valid(Y_valid)
+    .valid(Y_valid),
+    .done(systolic_done)
 );
 
 integer i0, j0, k0;
@@ -192,12 +193,13 @@ always@(posedge clk or posedge Y_valid) begin
     end
 end
 
-for (i = 0; i < K; i = i + 1) begin
-    for (j = 0; j < M; j = j + 1) begin
-        always@(posedge Y_valid) begin
-            mem[OUTPUT_BASE + i*M+j] = Y_buffer[j][(i+1)*DATA_WIDTH-1:i*DATA_WIDTH];
-        end
-    end
-end
+// for (i = 0; i < K; i = i + 1) begin
+//     for (j = 0; j < M; j = j + 1) begin
+//         always@(posedge Y_valid) begin
+//             mem[OUTPUT_BASE + i*M+j] = Y_buffer[j][(i+1)*DATA_WIDTH-1:i*DATA_WIDTH];
+//         end
+//     end
+// end
+
 
 endmodule

@@ -11,7 +11,8 @@ module systolic_array#(
     input [DATA_WIDTH*N-1:0] X,
     input [DATA_WIDTH*N*K-1:0] W,
     output reg [DATA_WIDTH*K-1:0] Y,
-    output valid
+    output valid,
+    output done
 );
 
 wire [DATA_WIDTH*N-1:0] X_pipe;
@@ -62,15 +63,22 @@ end
 always@(posedge clk or posedge rst) begin
     if (rst) begin
         valid <= 0;
+        done <= 0;
         count <= 0;
     end
     else begin
         count <= count + 1;
+        if (count < N+K-1) begin
+            valid <= 0;
+            done <= 0;
+        end
         if (count >= N+K-1 && count < N+K+M-1) begin
             valid <= 1;
+            done <= 0;
         end
         else begin
             valid <= 0;
+            done <= 1;
         end
     end
 end
