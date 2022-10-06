@@ -95,7 +95,7 @@ begin
     $write("\nim2col:\n");
     for (i0 = 0; i0 < N; i0 = i0 + 1) begin
         for (j0 = 0; j0 < M; j0 = j0 + 1) begin
-            $write("%04h ", mem[IM2COL_BASE + M * i0 + j0]);
+            $write("%04h ", mem[IM2COL_BASE + N * i0 + j0]);
         end
         $write("\n");
     end
