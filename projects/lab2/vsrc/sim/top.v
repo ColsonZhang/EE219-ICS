@@ -180,7 +180,6 @@ always@(posedge clk or posedge rst_systolic) begin
     end
 end
 
-for (i = 0; i < K; i = i + 1) begin
 always@(posedge clk or posedge Y_valid) begin
     if (Y_valid) begin
         Y_count <= 0;
@@ -188,11 +187,8 @@ always@(posedge clk or posedge Y_valid) begin
     else begin
         Y_count <= Y_count + 1;
         if (Y_count < M) begin
-            
-                Y_buffer[i] <= Y;
-            
+            Y_buffer[Y_count] <= Y;   
         end
     end
-end
 end
 endmodule
