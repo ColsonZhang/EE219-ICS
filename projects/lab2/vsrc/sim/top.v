@@ -195,7 +195,7 @@ end
 for (i = 0; i < K; i = i + 1) begin
     for (j = 0; j < M; j = j + 1) begin
         always@(posedge Y_valid) begin
-            mem[i*M+j] = Y_buffer[j][(i+1)*DATA_WIDTH-1:i*DATA_WIDTH];
+            mem[OUTPUT_BASE + i*M+j] = Y_buffer[j][(i+1)*DATA_WIDTH-1:i*DATA_WIDTH];
         end
     end
 end
