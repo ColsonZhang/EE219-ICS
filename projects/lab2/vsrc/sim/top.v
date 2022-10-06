@@ -120,7 +120,7 @@ end
 for (i = 0; i < M; i = i + 1) begin
     for (j = 0; j < N; j = j + 1) begin
         always@(posedge im2col_done) begin
-            X_buffer[i][(j+1)*DATA_WIDTH-1:j*DATA_WIDTH] <= mem[IM2COL_BASE + j*M +i];
+            X_buffer[i][(j+1)*DATA_WIDTH-1:j*DATA_WIDTH] <= mem[IM2COL_BASE + i*N +j];
         end
     end
 end
