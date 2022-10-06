@@ -172,6 +172,10 @@ always@(posedge clk or posedge rst_systolic) begin
     else begin
         if (count < M) begin
             X <= X_buffer[count];
+            count <= count + 1;
+        end
+        else begin
+            count <= 0;
         end
     end
 end
