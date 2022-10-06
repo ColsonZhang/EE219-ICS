@@ -176,6 +176,7 @@ always@(posedge clk or posedge rst_systolic) begin
         end
         else begin
             count <= 0;
+            X <= 0;
         end
     end
 end
