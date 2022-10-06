@@ -10,11 +10,13 @@ module systolic_array#(
     input rst,
     input [DATA_WIDTH*N-1:0] X,
     input [DATA_WIDTH*N*K-1:0] W,
-    output reg [DATA_WIDTH*K-1:0] Y
+    output reg [DATA_WIDTH*K-1:0] Y,
+    output valid
 );
 
 wire [DATA_WIDTH*N-1:0] X_pipe;
 wire [DATA_WIDTH*K-1:0] Y_pipe;
+reg [31:0] count;
 
 array #(
     .M(M),
@@ -55,6 +57,19 @@ for(i = 1; i < K; i = i + 1) begin
         .in_p(Y_pipe[(K-i)*DATA_WIDTH-1:(K-i-1)*DATA_WIDTH]),
         .out_p(Y[(K-i)*DATA_WIDTH-1:(K-i-1)*DATA_WIDTH])
     );
+end
+
+always@(posedge clk or posedge rst) begin
+    if (rst) begin
+        valid <= 0;
+        count <= 0;
+    end
+    else begin
+        count <= count + 1;
+        if (count > N+K-1 && count < N+K+M-1) begin
+            valid <= 1;
+        end
+    end
 end
 
 endmodule

@@ -45,6 +45,7 @@ reg [31:0] clk_cnt;
 reg rst_im2col, rst_systolic;
 wire im2col_done, systolic_done;
 reg [31:0] im2col_idle, systolic_idle;
+reg Y_valid;
 
 im2col #(
     .IMG_W(IMG_W),
@@ -75,7 +76,8 @@ systolic_array #(
     .rst(rst_systolic),
     .X(X),
     .W(W),
-    .Y(Y)
+    .Y(Y),
+    .valid(Y_valid)
 );
 
 integer i0, j0, k0;
@@ -146,8 +148,6 @@ end
 
 always@(posedge im2col_done) begin
     $writememh("../mem/mem_out.txt", mem);
-    // display_img();
-    // display_im2col();
 end
 
 for (i = 0; i < N*K; i = i + 1) begin
@@ -163,15 +163,16 @@ for (i = 0; i < M; i = i + 1) begin
     end
 end
 
-reg [31:0] X_count;
+reg [31:0] count;
 always@(posedge clk or posedge rst_systolic) begin
     if (rst_systolic) begin
         X <= 0;
-        X_count <= 0;
+        count <= 0;
     end
     else begin
-        X <= X_buffer[X_count];
-        X_count <= X_count + 1;
+        if (count < M) begin
+            X <= X_buffer[count];
+        end
     end
 end
 
