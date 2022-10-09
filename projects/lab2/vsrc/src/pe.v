@@ -1,9 +1,6 @@
 `timescale 1ns / 1ps
 
 module pe #(
-    parameter M = 5,
-    parameter N = 3,
-    parameter K = 4,
     parameter DATA_WIDTH = 32
 ) (
     input clk,

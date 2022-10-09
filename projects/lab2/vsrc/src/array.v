@@ -33,9 +33,6 @@ for (i = 0; i < N; i = i + 1) begin
     for (j = 0; j < K; j = j + 1) begin
         if (i > 0 && j > 0) begin
             pe#(
-                .M(M),
-                .N(N),
-                .K(K),
                 .DATA_WIDTH(DATA_WIDTH)
             )pe_body(
                 .clk(clk),
@@ -49,9 +46,6 @@ for (i = 0; i < N; i = i + 1) begin
         end
         if (i == 0 && j ==0) begin
             pe#(
-                .M(M),
-                .N(N),
-                .K(K),
                 .DATA_WIDTH(DATA_WIDTH)
             )pe_upper_left(
                 .clk(clk),
@@ -65,9 +59,6 @@ for (i = 0; i < N; i = i + 1) begin
         end
         if (i > 0 && j == 0) begin
             pe#(
-                .M(M),
-                .N(N),
-                .K(K),
                 .DATA_WIDTH(DATA_WIDTH)
             )pe_left_col(
                 .clk(clk),
@@ -81,9 +72,6 @@ for (i = 0; i < N; i = i + 1) begin
         end
         if (i == 0 && j > 0) begin
             pe#(
-                .M(M),
-                .N(N),
-                .K(K),
                 .DATA_WIDTH(DATA_WIDTH)
             )pe_top_row(
                 .clk(clk),
@@ -97,7 +85,4 @@ for (i = 0; i < N; i = i + 1) begin
         end
     end
 end
-
-
-
 endmodule

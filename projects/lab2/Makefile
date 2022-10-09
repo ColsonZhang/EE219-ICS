@@ -1,5 +1,5 @@
 IMG_W = 4
-IMG_H = 5
+IMG_H = 3
 FILTER_NUM = 5
 FILTER_SIZE = 3
 DEBUG = 0
