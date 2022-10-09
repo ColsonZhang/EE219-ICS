@@ -38,14 +38,14 @@ def main():
     mem_list = init_mem()
     for i in range(IMG_H):
         for j in range(IMG_W):
-            # val = random.randint(0, 255)
-            val = i * IMG_W + j
+            val = random.randint(0, 255)
+            # val = i * IMG_W + j
             mem_list[IMG_BASE + i * IMG_W + j] = val
 
     for i in range(K):
         for j in range(N):
-            # val = random.randint(0, 255)
-            val = i
+            val = random.randint(0, 255)
+            # val = i
             mem_list[WEIGHT_BASE + i * N +j] = val
     write_mem(mem_list)
     modify_testbench()
