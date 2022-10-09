@@ -205,6 +205,6 @@ Please compress all the files in your `vsrc/src` folder into a `zip` file with n
 |-- src
     |-- im2col.v
     |-- pe.v
-    |-- systolic.v
+    |-- systolic_array.v
     `-- ...
 ```
