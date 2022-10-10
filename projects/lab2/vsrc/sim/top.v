@@ -151,10 +151,10 @@ always@(posedge clk) begin
             rst_im2col <= 1;
             rst_systolic <= 1;
             if (rst) begin
-                state <= `STATE_IM2COL;
+                state <= `STATE_IDLE;
             end
             else begin
-                state <= `STATE_IDLE;
+                state <= `STATE_IM2COL;
             end
         end
         `STATE_IM2COL: begin
