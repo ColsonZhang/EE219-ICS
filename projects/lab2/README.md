@@ -168,7 +168,7 @@ Simply run `make` under folder `~/workspace/ics/projects/lab2`, it will automati
   <img src ="images/make.png"  width="90%"/>
 </p>
 <p align = "center">
-  <i>Row-major & Column-major</i>
+  <i>Successful terminal output</i>
 </p>
 
 (numbers are printed in hexadecimal)
