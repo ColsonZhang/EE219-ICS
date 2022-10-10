@@ -115,37 +115,76 @@ always @(posedge clk) begin
 end
 
 
-always @(posedge clk) begin
-    if (im2col_idle == 0) begin
-        rst_im2col <= 0;
-    end
-    else begin
-        im2col_idle <= im2col_idle - 1;
-        rst_im2col <= 1;
-    end
-end
+// always @(posedge clk) begin
+//     if (im2col_idle == 0) begin
+//         rst_im2col <= 0;
+//     end
+//     else begin
+//         im2col_idle <= im2col_idle - 1;
+//         rst_im2col <= 1;
+//     end
+// end
 
-always @(posedge clk or posedge im2col_done) begin
-    if (~im2col_done) begin
-        rst_systolic <= 1;
-    end
-    else begin
-        if (systolic_idle == 0) begin
+// always @(posedge clk or posedge im2col_done) begin
+//     if (~im2col_done) begin
+//         rst_systolic <= 1;
+//     end
+//     else begin
+//         if (systolic_idle == 0) begin
+//             rst_systolic <= 0;
+//         end
+//         else begin
+//             systolic_idle <= systolic_idle - 1;
+//         end
+//     end
+// end
+
+`define STATE_IDLE 0
+`define STATE_IM2COL 1
+`define STATE_SYSTOLIC 2
+
+reg [1:0] state;
+reg rst;
+always@(posedge clk) begin
+    case(state)
+        `STATE_IDLE: begin
+            rst_im2col <= 1;
+            rst_systolic <= 1;
+            if (rst) begin
+                state <= `STATE_IM2COL;
+            end
+            else begin
+                state <= `STATE_IDLE;
+            end
+        end
+        `STATE_IM2COL: begin
+            rst_im2col <= 0;
+            rst_systolic <= 1;
+            if (im2col_done) begin
+                state <= `STATE_SYSTOLIC;
+            end
+            else begin
+                state <= `STATE_IM2COL;
+            end
+        end
+        `STATE_SYSTOLIC: begin
+            rst_im2col <= 1;
             rst_systolic <= 0;
+            if (systolic_done) begin
+                state <= `STATE_IDLE;
+            end
+            else begin
+                state <= `STATE_SYSTOLIC;
+            end
         end
-        else begin
-            systolic_idle <= systolic_idle - 1;
-        end
-    end
+    endcase
 end
 
 
 initial begin
     $readmemh("../mem/mem_init.txt", mem);
-    rst_cyc = 5;
-    im2col_idle = 5;
-    systolic_idle = 5;
-    output_idle = 5;
+    rst = 0;
+    state = `STATE_IDLE;
 end
 
 for (i = 0; i < N*K; i = i + 1) begin
