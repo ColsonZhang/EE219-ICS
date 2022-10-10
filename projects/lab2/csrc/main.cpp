@@ -50,7 +50,7 @@ int main()
     int cycle = 0;
     // printf("Enter the test cycle:\t");
     // int ret = scanf("%d", &cycle);
-    cycle = 3000;
+    cycle = 500;
     for (int i = 0; i < cycle; i++) {
         test(i);
     }

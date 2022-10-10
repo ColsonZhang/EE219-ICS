@@ -4,6 +4,9 @@
 `define FILTER_NUM 5
 `define FILTER_SIZE 3
 `define DEBUG 0
+`define STATE_IDLE 0
+`define STATE_IM2COL 1
+`define STATE_SYSTOLIC 2
 
 module pe_top_row(
     input clk
@@ -40,12 +43,12 @@ reg [DATA_WIDTH-1:0] data_rd;
 wire [DATA_WIDTH-1:0] data_wr;
 wire mem_wr_en;
 
-reg [31:0] rst_cyc;
-reg [31:0] clk_cnt;
 reg rst_im2col, rst_systolic;
 wire im2col_done, systolic_done;
-reg [31:0] im2col_idle, systolic_idle, output_idle;
 reg Y_valid;
+reg [1:0] state;
+reg rst;
+reg [1:0] rst_cnt;
 
 im2col #(
     .IMG_W(IMG_W),
@@ -114,42 +117,12 @@ always @(posedge clk) begin
     end
 end
 
-
-// always @(posedge clk) begin
-//     if (im2col_idle == 0) begin
-//         rst_im2col <= 0;
-//     end
-//     else begin
-//         im2col_idle <= im2col_idle - 1;
-//         rst_im2col <= 1;
-//     end
-// end
-
-// always @(posedge clk or posedge im2col_done) begin
-//     if (~im2col_done) begin
-//         rst_systolic <= 1;
-//     end
-//     else begin
-//         if (systolic_idle == 0) begin
-//             rst_systolic <= 0;
-//         end
-//         else begin
-//             systolic_idle <= systolic_idle - 1;
-//         end
-//     end
-// end
-
-`define STATE_IDLE 0
-`define STATE_IM2COL 1
-`define STATE_SYSTOLIC 2
-
-reg [1:0] state;
-reg rst;
 always@(posedge clk) begin
     case(state)
         `STATE_IDLE: begin
             rst_im2col <= 1;
             rst_systolic <= 1;
+            $writememh("../mem/mem_out.txt", mem);
             if (rst) begin
                 state <= `STATE_IDLE;
             end
@@ -180,11 +153,27 @@ always@(posedge clk) begin
     endcase
 end
 
+always@(posedge clk) begin
+    if (rst_cnt == 0) begin
+        rst <= 1;
+        rst_cnt <= 0;
+    end
+    else begin
+        if (rst_cnt == 1) begin
+            rst <= 0;
+        end 
+        if (rst_cnt == 2) begin
+            rst <= 1;
+        end 
+        rst_cnt <= rst_cnt - 1;
+    end
+end
+
 
 initial begin
     $readmemh("../mem/mem_init.txt", mem);
-    rst = 0;
     state = `STATE_IDLE;
+    rst_cnt = 2'b11;
 end
 
 for (i = 0; i < N*K; i = i + 1) begin
@@ -233,17 +222,6 @@ for (i = 0; i < K; i = i + 1) begin
     for (j = 0; j < M; j = j + 1) begin
         always@(posedge systolic_done) begin
             mem[OUTPUT_BASE + i*M+j] = Y_buffer[j][(i+1)*DATA_WIDTH-1:i*DATA_WIDTH];
-        end
-    end
-end
-
-always@(posedge clk) begin
-    if (output_idle == 0) begin
-        $writememh("../mem/mem_out.txt", mem);
-    end
-    else begin
-        if (systolic_done) begin
-            output_idle <= output_idle - 1;
         end
     end
 end
