@@ -125,7 +125,7 @@ always @(posedge clk) begin
     end
 end
 
-always @(posedge clk) begin
+always @(posedge clk or posedge im2col_done) begin
     if (~im2col_done) begin
         rst_systolic <= 1;
     end
