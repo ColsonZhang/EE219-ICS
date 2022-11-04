@@ -190,7 +190,7 @@ bash scripts/run_test.sh
 It will do multiple tests using parameters read from `test/cases.txt`, you can also add your own cases to it. The result are saved in file `test/result.txt`.
 
 ## Grading
-
+### Code (80%)
 * Complete im2col (20%)
 * Complete systolic array
   * Fail all the tests (0%)
@@ -198,13 +198,27 @@ It will do multiple tests using parameters read from `test/cases.txt`, you can a
 
 Your code will be tested by the same testcases in `test/cases.txt`.
 
+### Report (20%)
+The report should be written in English and follows the [IEEE double-column template](https://www.ieee.org/conferences/publishing/templates.html). Only PDF format is acceptable.
+
+A good report should includes following components:
+* An introduction to briefly introduce the system design.
+* Implementation details for each of the modules.
+* A strong conclusion to assess and summarize your design.
+
 ## Submission
-Please compress all the files in your `vsrc/src` folder into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to BB. The file structure should be like
+Please compress all the files in your `vsrc/src` folder into a `zip` file with name `{StudentNumber}_EE219_Lab2.zip`, and submit to Blackboard. The file structure should be like
 ```
-7654321_EE219_Lab2/
+2022123123_EE219_Lab2/
+|-- report.pdf
 |-- src
     |-- im2col.v
     |-- pe.v
-    |-- systolic_array.v
+    |-- systolic.v
     `-- ...
 ```
+
+## Reference
+
+[1] Yajun, Ha. EE116: FPGA-based Hardware System Design, ShanghaiTech University, 2020
+[2] Siting,Liu EE219: AI Computing Systems, ShanghaiTech University, 2022
