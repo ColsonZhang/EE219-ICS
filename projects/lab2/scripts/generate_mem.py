@@ -5,6 +5,8 @@ import shutil
 
 mem_path = "./mem/"
 top_file = "./vsrc/sim/top.v"
+if not os.path.exists(mem_path):
+    os.mkdir(mem_path)
 
 IMG_W = int(sys.argv[1])
 IMG_H = int(sys.argv[2])

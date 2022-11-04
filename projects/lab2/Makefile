@@ -18,6 +18,5 @@ sim: memory
 
 clean:
 	./../../build.sh -e lab2 -c
-	if [ -f "mem/mem_init.txt" ]; then rm mem/mem_init.txt; fi
-	if [ -f "mem/mem_out.txt" ]; then rm mem/mem_out.txt; fi
-	if [ -f "mem/status" ]; then rm mem/status; fi
+	if [ -d "mem" ]; then rm -rf mem; fi
+
