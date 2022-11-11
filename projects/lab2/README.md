@@ -131,8 +131,8 @@ The systolic array is constructed by instantiate PE modules. You need to connect
 
 | name | description |
 | - | - |
-| M | number of rows in X (total pixels of the image) |
-| N | number of columns in X (number of weights in a convolution kernel) |
+| M | number of columns in X (total pixels of the image) |
+| N | number of rows in X (number of weights in a convolution kernel) |
 | K | number of columns in W (number of convolution kernels) |
 | DATA_WIDTH | data width |
 
