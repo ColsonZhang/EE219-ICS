@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define DUMP_WAVE_ENABLE
+// #define DUMP_WAVE_ENABLE
 #define SAVE_DATA_ENABLE
 
 #define ADDR_BASE		0x80000000
@@ -31,18 +31,24 @@ int main(int argc, char **argv)
 	char default_path_save[] = "./save.dat";
 
 	char *path_inst ;
-	if (argc != 2){
+	char *path_data ;
+	char *path_save ;
+	if (argc != 4){
 		printf("\033[31mERROR: No binary file\033[0m\n");
 		path_inst = default_path_inst ;
+		path_data = default_path_data ;
+		path_save = default_path_save ;
 	}else{
 		path_inst = argv[1] ;
+		path_data = argv[2] ;
+		path_save = argv[3] ;
 	}
 	printf("Initialing RAM ...\n");
     init_ram(path_inst);
 	printf("\033[32mInitial RAM done !!!\033[0m\n");
 
 	printf("Initialing Data ...\n");
-	load_data(ADDR_DATA, default_path_data );
+	load_data(ADDR_DATA, path_data );
 	printf("\033[32mLoad Data done !!!\033[0m\n");
 
   	// Verilated::commandArgs(argc, argv);
@@ -75,7 +81,7 @@ int main(int argc, char **argv)
 	printf("\033[34mThe program finished after \033[35m%ld\033[34m cycles.\033[0m \n", main_time/10);
 
 #ifdef SAVE_DATA_ENABLE
-	save_data( ADDR_DATA, default_path_save);
+	save_data( ADDR_DATA, path_save);
 #endif
 
 #ifdef DUMP_WAVE_ENABLE
