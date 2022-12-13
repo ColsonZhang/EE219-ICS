@@ -31,9 +31,7 @@ void vadd_vx(register int* vd,register int* rs1,register int* vs2){
 }
 
 void vadd_vi(register int* vd,register int* imm,register int* vs2){
-    register int *reg_vd asm ("x2");
-    register int *reg_vs2 asm ("x4");
-    asm volatile( ".insn r 0x57, 0x3, 0x01, %0, %1, %2": :"r"(reg_vd), "r"(imm), "r"(reg_vs2) );
+    asm volatile( ".insn r 0x57, 0x3, 0x01, %0, %1, %2": :"r"(vd), "r"(imm), "r"(vs2) );
 }
 
 
