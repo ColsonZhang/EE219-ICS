@@ -95,9 +95,8 @@ Since the architecture of our intelligent computing system is processor-based, w
 
 The final specific scoring criteria will be released later.
 
-* Presentation (20%)
-* Report (20%)
-* Code (40%)
+* Report (30%)
+* Code (50%)
 * Competition (20%)
 
 ## Submission
