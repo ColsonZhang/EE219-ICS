@@ -11,7 +11,7 @@ module RAMVectorHelper(
 );
   genvar i ;
   for (i=0; i<8; i=i+1) begin
-    assign rdata[64*(i+1)-1:64*i] = ram_inst_helper(ren, rIdx+i);
+    assign rdata[64*(i+1)-1:64*i] = ram_read_helper(ren, rIdx+i);
   end
 
   for (i=0; i<8; i=i+1) begin
