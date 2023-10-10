@@ -1,1 +1,0 @@
-This foler store the binary files of instruction and data
